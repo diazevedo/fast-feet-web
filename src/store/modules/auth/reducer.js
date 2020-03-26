@@ -3,7 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   token: null,
   signed: false,
-  loadig: false,
+  loading: false,
 };
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -23,8 +23,13 @@ export default function auth(state = INITIAL_STATE, action) {
         break;
       }
 
-      default:
+      case '@auth/SIGN_FAILURE': {
+        draft.loading = false;
+        draft.token = null;
         break;
+      }
+
+      default:
     }
   });
 }

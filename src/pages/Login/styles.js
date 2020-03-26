@@ -21,16 +21,38 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  form {
+    width: 300px;
+    margin-top: 22px;
+
+    input {
+      width: 100%;
+      height: 45px;
+      border: 1px solid ${color.third};
+      border-radius: 4px;
+      font-size: 16px;
+      line-height: 45px;
+      padding-left: 15px;
+      color: ${color.fifth};
+
+      &::placeholder {
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+
+    span {
+      color: #db7272;
+      display: inline-block;
+      margin-top: 5px;
+    }
+  }
 `;
 
 export const Img = styled.img`
   width: 260px;
   height: 44px;
-`;
-
-export const Form = styled.form`
-  width: 300px;
-  margin-top: 22px;
 `;
 
 export const Label = styled.label`
@@ -41,22 +63,6 @@ export const Label = styled.label`
   font-size: 14px;
   font-weight: bold;
   color: ${color.fifth};
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  height: 45px;
-  border: 1px solid ${color.third};
-  border-radius: 4px;
-  font-size: 16px;
-  line-height: 45px;
-  padding-left: 15px;
-  color: ${color.fifth};
-
-  &::placeholder {
-    font-size: 16px;
-    font-weight: normal;
-  }
 `;
 
 export const Button = styled.button`
