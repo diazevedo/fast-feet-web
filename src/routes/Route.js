@@ -3,30 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-// const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
-const RouteWrapper = ({ component: Component }) => {
+const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
   const signed = false;
 
-  // if (!signed && isPrivate) {
-  if (!signed) {
+  if (!signed && isPrivate) {
     return <Redirect to="/" />;
   }
-  // console.log(9999);
-  // // if (signed && !isPrivate) {
-  // if (signed) {
-  //   return <Redirect to="/dashboard" />;
-  // }
 
-  const Layout = ({ children }) => <div>{children}</div>;
-  return (
-    <Route
-      render={(props) => (
-        <Layout>
-          <Component {...props} />
-        </Layout>
-      )}
-    />
-  );
+  if (signed && !isPrivate) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  return <Route render={(props) => <Component {...props} />} />;
 };
 
 RouteWrapper.propTypes = {
