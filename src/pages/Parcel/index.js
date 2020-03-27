@@ -2,6 +2,6 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-export default function Dashboard() {
-  return <h1>Dashboard</h1>;
+export default function Parcel() {
+  return <h1>Parcel</h1>;
 }

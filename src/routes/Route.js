@@ -5,6 +5,9 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { store } from '~/store';
 
+import SignedLayout from '~/pages/_layouts/signed';
+import Auth from '~/pages/_layouts/auth';
+
 const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
   const { signed } = store.getState().auth;
 
@@ -13,10 +16,21 @@ const RouteWrapper = ({ component: Component, isPrivate, ...rest }) => {
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/parcel" />;
   }
 
-  return <Route render={(props) => <Component {...props} />} />;
+  const Layout = signed ? SignedLayout : Auth;
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        <Layout>
+          <Component {...props} />
+        </Layout>
+      )}
+    />
+  );
 };
 
 RouteWrapper.propTypes = {

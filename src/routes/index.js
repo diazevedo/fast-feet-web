@@ -4,14 +4,19 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import Login from '~/pages/Login';
-import Dashboard from '~/pages/Dashboard';
+import Parcel from '~/pages/Parcel';
+
+function Couriers() {
+  return <h1>Couriers</h1>;
+}
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Login} />
-      <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/" component={() => <h1>Page not found</h1>} />
+      <Route path="/parcel" component={Parcel} isPrivate />
+      <Route path="/couriers" component={Couriers} isPrivate />
+      <Route path="/" component={() => <h1>not foun</h1>} />
     </Switch>
   );
 }

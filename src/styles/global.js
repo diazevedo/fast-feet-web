@@ -22,6 +22,8 @@ export default createGlobalStyle`
   html, body, #root {
     margin: 0;
     height: 100%;
+    width: 100%;
+
   }
 
   body {
