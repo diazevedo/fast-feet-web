@@ -52,6 +52,7 @@ export const Header = styled.header`
     }
 
     button {
+      text-transform: capitalize;
       color: ${color.alert};
     }
   }

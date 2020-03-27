@@ -51,7 +51,7 @@ export default function Header() {
       <div>
         <p>{user.name}</p>
         <button type="button" onClick={handleLogout}>
-          log out
+          exit
         </button>
       </div>
     </C.Header>

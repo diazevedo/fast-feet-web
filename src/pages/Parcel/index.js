@@ -1,7 +1,12 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import * as C from './styles';
+import PageTitle from '~/components/PageTitle';
 
 export default function Parcel() {
-  return <h1>Parcel</h1>;
+  return (
+    <C.Main>
+      <PageTitle>Parcel management</PageTitle>
+    </C.Main>
+  );
 }
