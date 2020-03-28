@@ -17,15 +17,28 @@ const Table = ({ headers, body, Icon }) => {
         {body.map((parcel) => (
           <tr key={parcel.id}>
             <td>{parcel.id}</td>
-            <td>{parcel.recipient}</td>
-            <td>{parcel.courier}</td>
-            <td>{parcel.city}</td>
-            <td>{parcel.state}</td>
+            <td>{parcel.recipient.name}</td>
             <td>
-              <span>{parcel.status}</span>
+              <div>
+                <img
+                  src={
+                    (parcel.courier.avatar && parcel.courier.avatar.url) ||
+                    'https://api.adorable.io/avatars/50/abott@adorable.png'
+                  }
+                  alt=""
+                />
+                <span>{parcel.courier.name}</span>
+              </div>
+            </td>
+            <td>{parcel.recipient.city}</td>
+            <td>{parcel.recipient.state}</td>
+            <td>
+              <span>{parcel.status || 'ENTREGUE'}</span>
             </td>
             <td>
-              <Icon />
+              <button type="button">
+                <Icon />
+              </button>
             </td>
           </tr>
         ))}

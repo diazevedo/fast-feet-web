@@ -3,6 +3,8 @@ import Reset from 'styled-reset';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+import color from '~/styles/colors';
+
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -23,6 +25,7 @@ export default createGlobalStyle`
     margin: 0;
     height: 100%;
     width: 100%;
+    background: ${color.sixth};
 
   }
 

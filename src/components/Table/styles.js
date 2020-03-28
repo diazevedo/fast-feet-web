@@ -25,14 +25,15 @@ export const Table = styled.table`
   tbody tr td {
     font-size: 14px;
     color: ${color.second};
-    padding: 18px 0;
+    padding: 14px 0;
     padding-left: 25px;
+    text-transform: capitalize;
 
     &:last-child {
       text-align: center;
     }
 
-    span {
+    > span {
       width: max-content;
       padding: 3px 8px;
       border-radius: 12px;
@@ -51,6 +52,37 @@ export const Table = styled.table`
         background-color: #2ca42b;
         display: inline-block;
         border-radius: 50%;
+      }
+    }
+
+    div {
+      position: relative;
+
+      span {
+        margin-left: 35px;
+      }
+
+      img {
+        position: absolute;
+
+        width: 30px;
+        height: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        border-radius: 50%;
+      }
+    }
+
+    button {
+      height: 100%;
+      padding-top: 2px;
+      position: relative;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-60%);
       }
     }
   }

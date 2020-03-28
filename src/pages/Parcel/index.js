@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdMoreHoriz } from 'react-icons/md';
+
+import api from '~/services/api';
 
 import * as C from './styles';
 import PageTitle from '~/components/PageTitle';
@@ -38,13 +40,29 @@ const data = {
 };
 
 export default function Parcel() {
+  const [parcels, setParcels] = useState([]);
+  useEffect(() => {
+    const loadParcels = async () => {
+      const response = await api.get('/parcels');
+
+      setParcels(response.data);
+    };
+
+    loadParcels();
+  }, []);
+
   return (
     <C.Main>
-      <PageTitle>Parcel management</PageTitle>
-      <SearchInput>Parcel management</SearchInput>
+      <PageTitle>Parcels management</PageTitle>
+
+      <div>
+        <SearchInput>Parcel management</SearchInput>
+        <SearchInput>Parcel management</SearchInput>
+      </div>
+
       <Table
         headers={data.headers}
-        body={data.parcels}
+        body={parcels}
         Icon={() => <MdMoreHoriz color={color.second} size={24} />}
       />
     </C.Main>
