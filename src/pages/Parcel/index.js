@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { MdMoreHoriz } from 'react-icons/md';
+import { MdMoreHoriz, MdAdd } from 'react-icons/md';
 
 import api from '~/services/api';
 
 import * as C from './styles';
 import PageTitle from '~/components/PageTitle';
 import SearchInput from '~/components/SearchInput';
+import ButtonIcon from '~/components/ButtonIcon';
 import Table from '~/components/Table';
+
 import color from '~/styles/colors';
 
 const data = {
@@ -56,8 +58,10 @@ export default function Parcel() {
       <PageTitle>Parcels management</PageTitle>
 
       <div>
-        <SearchInput>Parcel management</SearchInput>
-        <SearchInput>Parcel management</SearchInput>
+        <SearchInput placeholder="buscar encomenda" />
+        <ButtonIcon text="cadastrar">
+          <MdAdd color={color.fourth} size={30} />
+        </ButtonIcon>
       </div>
 
       <Table

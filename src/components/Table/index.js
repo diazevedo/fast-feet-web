@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Actions from '~/components/Actions';
 import * as C from './styles';
 
 const Table = ({ headers, body, Icon }) => {
@@ -18,7 +19,7 @@ const Table = ({ headers, body, Icon }) => {
           <tr key={parcel.id}>
             <td>{parcel.id}</td>
             <td>{parcel.recipient.name}</td>
-            <td>
+            <td className="image">
               <div>
                 <img
                   src={
@@ -33,12 +34,10 @@ const Table = ({ headers, body, Icon }) => {
             <td>{parcel.recipient.city}</td>
             <td>{parcel.recipient.state}</td>
             <td>
-              <span>{parcel.status || 'ENTREGUE'}</span>
+              <span className="status">{parcel.status || 'ENTREGUE'}</span>
             </td>
             <td>
-              <button type="button">
-                <Icon />
-              </button>
+              <Actions />
             </td>
           </tr>
         ))}

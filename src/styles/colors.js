@@ -6,4 +6,5 @@ export default {
   fifth: '#444444',
   sixth: '#F5F5F5',
   alert: '#DE3B3B',
+  delivered: '#2ca42b',
 };

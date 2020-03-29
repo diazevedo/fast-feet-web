@@ -22,6 +22,24 @@ export const Table = styled.table`
     background: ${color.fourth};
   }
 
+  .image > div {
+    position: relative;
+
+    span {
+      margin-left: 35px;
+    }
+
+    img {
+      position: absolute;
+
+      width: 30px;
+      height: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      border-radius: 50%;
+    }
+  }
   tbody tr td {
     font-size: 14px;
     color: ${color.second};
@@ -33,7 +51,7 @@ export const Table = styled.table`
       text-align: center;
     }
 
-    > span {
+    .status {
       width: max-content;
       padding: 3px 8px;
       border-radius: 12px;
@@ -51,25 +69,6 @@ export const Table = styled.table`
         margin-right: 5px;
         background-color: #2ca42b;
         display: inline-block;
-        border-radius: 50%;
-      }
-    }
-
-    div {
-      position: relative;
-
-      span {
-        margin-left: 35px;
-      }
-
-      img {
-        position: absolute;
-
-        width: 30px;
-        height: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-
         border-radius: 50%;
       }
     }
