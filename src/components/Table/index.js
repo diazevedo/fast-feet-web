@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Actions from '~/components/Actions';
 import * as C from './styles';
 
-const Table = ({ headers, body, Icon }) => {
+const Table = ({ headers, body, handleDelete }) => {
   return (
     <C.Table>
       <thead>
@@ -37,7 +37,7 @@ const Table = ({ headers, body, Icon }) => {
               <span className="status">{parcel.status || 'ENTREGUE'}</span>
             </td>
             <td>
-              <Actions />
+              <Actions handleDelete={handleDelete} parcel={parcel} />
             </td>
           </tr>
         ))}

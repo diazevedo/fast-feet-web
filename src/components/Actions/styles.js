@@ -24,7 +24,7 @@ export const Container = styled.div`
       content: '';
       display: block;
       border-style: solid;
-      border-width: 0 5px 5px 5px;
+      border-width: 0 7px 7px 7px;
       border-color: transparent;
       position: absolute;
       left: 50%;
@@ -32,12 +32,12 @@ export const Container = styled.div`
     }
 
     &::before {
-      top: -5px;
+      top: -7px;
       border-bottom-color: rgba(0, 0, 0, 0.5);
     }
 
     &::after {
-      top: -5px;
+      top: -7px;
       border-bottom-color: #fff;
     }
 
@@ -51,7 +51,9 @@ export const Container = styled.div`
         border: none;
       }
 
-      > span {
+      > a,
+      button {
+        color: #999999;
         margin-left: 10px;
       }
     }

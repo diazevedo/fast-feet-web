@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { MdMoreHoriz, MdAdd } from 'react-icons/md';
+import { MdAdd } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
-import * as C from './styles';
 import PageTitle from '~/components/PageTitle';
 import SearchInput from '~/components/SearchInput';
 import ButtonIcon from '~/components/ButtonIcon';
 import Table from '~/components/Table';
+
+import * as C from './styles';
 
 import color from '~/styles/colors';
 
@@ -43,10 +45,16 @@ const data = {
 
 export default function Parcel() {
   const [parcels, setParcels] = useState([]);
+
+  const handleDelete = async ({ id }) => {
+    await api.delete(`/parcels/${id}`);
+
+    history.push('/');
+  };
+
   useEffect(() => {
     const loadParcels = async () => {
       const response = await api.get('/parcels');
-
       setParcels(response.data);
     };
 
@@ -57,7 +65,7 @@ export default function Parcel() {
     <C.Main>
       <PageTitle>Parcels management</PageTitle>
 
-      <div>
+      <div className="buttons">
         <SearchInput placeholder="buscar encomenda" />
         <ButtonIcon text="cadastrar">
           <MdAdd color={color.fourth} size={30} />
@@ -67,7 +75,7 @@ export default function Parcel() {
       <Table
         headers={data.headers}
         body={parcels}
-        Icon={() => <MdMoreHoriz color={color.second} size={24} />}
+        handleDelete={handleDelete}
       />
     </C.Main>
   );

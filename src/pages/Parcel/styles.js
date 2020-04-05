@@ -6,7 +6,7 @@ export const Main = styled.div`
   margin: 0 auto;
   padding: 42px 40px;
 
-  > div {
+  .buttons {
     margin-top: 36px;
     display: flex;
     justify-content: space-between;
