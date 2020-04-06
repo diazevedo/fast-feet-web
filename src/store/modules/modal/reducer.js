@@ -5,7 +5,6 @@ const INITIAL_STATE = {
 };
 
 export default function modal(state = INITIAL_STATE, action) {
-  console.log(action);
   return produce(state, (draft) => {
     switch (action.type) {
       case '@modal/OPEN': {

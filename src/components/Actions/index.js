@@ -12,20 +12,13 @@ import {
 } from 'react-icons/md';
 
 import { showModal } from '~/store/modules/modal/actions';
-
-import color from '~/styles/colors';
-
 import { Container } from './styles';
+import color from '~/styles/colors';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Actions = ({ parcel, handleDelete, handleView }) => {
   const [visible, setVisibility] = useState(false);
-
   const dispatch = useDispatch();
-
-  const handleToggleVisible = () => {
-    setVisibility(!visible);
-  };
 
   const handleClickView = ({ id }) => {
     dispatch(showModal(id));
@@ -37,7 +30,7 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
       <MdMoreHoriz
         color={color.second}
         size={24}
-        onClick={handleToggleVisible}
+        onClick={() => setVisibility(!visible)}
       />
       <ul>
         <li>
