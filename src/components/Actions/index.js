@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   MdMoreHoriz,
@@ -9,7 +11,8 @@ import {
   MdDeleteForever,
 } from 'react-icons/md';
 
-import history from '~/services/history';
+import { showModal } from '~/store/modules/modal/actions';
+
 import color from '~/styles/colors';
 
 import { Container } from './styles';
@@ -18,8 +21,15 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 const Actions = ({ parcel, handleDelete, handleView }) => {
   const [visible, setVisibility] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleToggleVisible = () => {
     setVisibility(!visible);
+  };
+
+  const handleClickView = ({ id }) => {
+    dispatch(showModal(id));
+    handleView(id);
   };
 
   return (
@@ -32,7 +42,7 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
       <ul>
         <li>
           <MdVisibility color={color.primary} size={16} />
-          <button type="button" onClick={() => console.log(1)}>
+          <button type="button" onClick={() => handleClickView(parcel)}>
             View
           </button>
         </li>
@@ -66,6 +76,14 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
       </ul>
     </Container>
   );
+};
+
+Actions.propTypes = {
+  parcel: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleView: PropTypes.func.isRequired,
 };
 
 export default Actions;

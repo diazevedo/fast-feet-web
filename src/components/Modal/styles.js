@@ -1,24 +1,30 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  display: ${(props) => (props.modalOpened === 1 ? 'block' : 'none')};
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 3;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
 
-  > div {
+  button {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: default;
+  }
+
+  .content {
     min-width: 450px;
-
-    height: 50%;
-    min-height: 300px;
+    height: 350px;
 
     padding: 20px 20px;
     background: #ffffff;
-    position: absolute;
+
+    z-index: 4;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -36,6 +42,7 @@ export const Wrapper = styled.div`
       color: #444444;
       font-weight: 700;
       line-height: 16px;
+      margin-bottom: 5px;
     }
 
     p {

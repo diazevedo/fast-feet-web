@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
+import { format, parseISO } from 'date-fns';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -9,6 +12,8 @@ import SearchInput from '~/components/SearchInput';
 import ButtonIcon from '~/components/ButtonIcon';
 import Table from '~/components/Table';
 import Modal from '~/components/Modal';
+
+import { hideModal } from '~/store/modules/modal/actions';
 
 import * as C from './styles';
 
@@ -52,13 +57,24 @@ const parcelStatus = (parcel) => {
   return 'pending';
 };
 
+const formatDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
+
 export default function Parcel() {
   const [parcels, setParcels] = useState([]);
+  const [parcelSelected, setParcelSelected] = useState({});
+
+  const dispatch = useDispatch();
+  const modalOpened = useSelector((state) => state.modal.opened);
 
   const handleDelete = async ({ id }) => {
     await api.delete(`/parcels/${id}`);
 
     history.push('/');
+  };
+
+  const closeModal = () => {
+    dispatch(hideModal());
+    setParcelSelected({});
   };
 
   useEffect(() => {
@@ -76,18 +92,34 @@ export default function Parcel() {
     loadParcels();
   }, []);
 
-  const handleViewParcel = ({ id }) => {
-    console.log(id);
+  const handleViewParcel = async (id) => {
+    const response = await api.get(`/parcels/${id}`);
+
+    const parcelFormatted = {
+      ...response.data,
+      started: response.data.start_date
+        ? formatDate(response.data.start_date)
+        : 'To be picked up',
+      end: response.data.end_date
+        ? formatDate(response.data.end_date)
+        : 'To be delivered',
+    };
+    setParcelSelected(parcelFormatted);
   };
 
   return (
     <C.Main>
-      <Modal />
+      {modalOpened ? (
+        <Modal closeModal={closeModal} parcel={parcelSelected} />
+      ) : (
+        ''
+      )}
+
       <PageTitle>Parcels management</PageTitle>
 
       <div className="wrapper-buttons">
         <SearchInput placeholder="buscar encomenda" />
-        <ButtonIcon text="cadastrar">
+        <ButtonIcon text="register">
           <MdAdd color={color.fourth} size={30} />
         </ButtonIcon>
       </div>

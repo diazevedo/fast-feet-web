@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Actions from '~/components/Actions';
 import * as C from './styles';
 
-const Table = ({ headers, body, handleDelete }) => {
+const Table = ({ headers, body, handleDelete, handleView }) => {
   return (
     <C.Table>
       <thead>
@@ -39,7 +39,11 @@ const Table = ({ headers, body, handleDelete }) => {
               </span>
             </td>
             <td>
-              <Actions handleDelete={handleDelete} parcel={parcel} />
+              <Actions
+                handleDelete={handleDelete}
+                parcel={parcel}
+                handleView={handleView}
+              />
             </td>
           </tr>
         ))}
@@ -52,6 +56,7 @@ Table.propTypes = {
   headers: PropTypes.arrayOf(PropTypes.string).isRequired,
   body: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleDelete: PropTypes.func.isRequired,
+  handleView: PropTypes.func.isRequired,
 };
 
 export default Table;
