@@ -34,7 +34,9 @@ const Table = ({ headers, body, handleDelete }) => {
             <td>{parcel.recipient.city}</td>
             <td>{parcel.recipient.state}</td>
             <td>
-              <span className="status">{parcel.status || 'ENTREGUE'}</span>
+              <span className={`status -${parcel.status}`}>
+                {parcel.status}
+              </span>
             </td>
             <td>
               <Actions handleDelete={handleDelete} parcel={parcel} />
@@ -49,6 +51,7 @@ const Table = ({ headers, body, handleDelete }) => {
 Table.propTypes = {
   headers: PropTypes.arrayOf(PropTypes.string).isRequired,
   body: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default Table;

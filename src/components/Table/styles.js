@@ -61,6 +61,7 @@ export const Table = styled.table`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      text-transform: uppercase;
 
       &:before {
         content: '';
@@ -70,6 +71,33 @@ export const Table = styled.table`
         background-color: #2ca42b;
         display: inline-block;
         border-radius: 50%;
+      }
+
+      &.-pending {
+        color: #c1bc35;
+        background: #f0f0df;
+
+        &:before {
+          background-color: #c1bc35;
+        }
+      }
+
+      &.-picked {
+        color: #4d85ee;
+        background: #bad2ff;
+
+        &:before {
+          background-color: #4d85ee;
+        }
+      }
+
+      &.-cancelled {
+        color: #de3b3b;
+        background: #fab0b0;
+
+        &:before {
+          background-color: #de3b3b;
+        }
       }
     }
 

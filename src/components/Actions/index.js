@@ -15,7 +15,7 @@ import color from '~/styles/colors';
 import { Container } from './styles';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const Actions = ({ handleDelete, parcel }) => {
+const Actions = ({ parcel, handleDelete, handleView }) => {
   const [visible, setVisibility] = useState(false);
 
   const handleToggleVisible = () => {
@@ -32,7 +32,9 @@ const Actions = ({ handleDelete, parcel }) => {
       <ul>
         <li>
           <MdVisibility color={color.primary} size={16} />
-          <Link to="parcel/visualize">Visualizar</Link>
+          <button type="button" onClick={() => console.log(1)}>
+            View
+          </button>
         </li>
         <li>
           <MdModeEdit color={color.delivered} size={16} />
