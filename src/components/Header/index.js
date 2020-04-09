@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <C.Header>
-      <nav>
+      <C.Navigation>
         <Link to="/">
           <img src={logo} alt="Fast Feet logo" />
         </Link>
@@ -47,13 +47,13 @@ export default function Header() {
             </C.MenuItem>
           ))}
         </ul>
-      </nav>
-      <div>
+      </C.Navigation>
+      <C.User>
         <p>{user.name}</p>
         <button type="button" onClick={handleLogout}>
           exit
         </button>
-      </div>
+      </C.User>
     </C.Header>
   );
 }

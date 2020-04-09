@@ -7,7 +7,6 @@ export default function Modal({ closeModal, parcel }) {
   const { recipient = {} } = parcel;
 
   return (
-    // <C.Wrapper onClick={closeModal} modalOpened={open === true ? 1 : 0}>
     <C.Wrapper>
       <button type="button" className="close" onClick={closeModal}>
         close

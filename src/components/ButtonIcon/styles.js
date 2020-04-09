@@ -10,6 +10,7 @@ export const Button = styled.button`
   color: ${color.fourth};
   background: ${color.primary};
   border-radius: 4px;
+  padding: 5px;
 
   display: flex;
   align-items: center;

@@ -41,7 +41,7 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
         </li>
         <li>
           <MdModeEdit color={color.delivered} size={16} />
-          <Link to="parcel/edit">Editar</Link>
+          <Link to={`/parcel/edit/${parcel.id}`}>Editar</Link>
         </li>
         <li>
           <MdDeleteForever color={color.alert} size={16} />
