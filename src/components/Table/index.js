@@ -10,17 +10,19 @@ const Table = ({ headers, body, handleDelete, handleView }) => {
       <thead>
         <tr>
           {headers.map((header) => (
-            <th key={header}>{header}</th>
+            <C.TH key={header.text} showMobile={header.showMobile}>
+              {header.text}
+            </C.TH>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <C.TBody>
         {body.map((parcel) => (
           <tr key={parcel.id}>
-            <td>{parcel.id}</td>
+            <td>#{parcel.id}</td>
             <td>{parcel.recipient.name}</td>
-            <td className="image">
-              <div>
+            <td>
+              <C.WrapperImageTd>
                 <img
                   src={
                     (parcel.courier.avatar && parcel.courier.avatar.url) ||
@@ -29,14 +31,12 @@ const Table = ({ headers, body, handleDelete, handleView }) => {
                   alt=""
                 />
                 <span>{parcel.courier.name}</span>
-              </div>
+              </C.WrapperImageTd>
             </td>
-            <td>{parcel.recipient.city}</td>
-            <td>{parcel.recipient.state}</td>
+            <C.TdNonMobile>{parcel.recipient.city}</C.TdNonMobile>
+            <C.TdNonMobile>{parcel.recipient.state}</C.TdNonMobile>
             <td>
-              <span className={`status -${parcel.status}`}>
-                {parcel.status}
-              </span>
+              <C.Status status={parcel.status}>{parcel.status} </C.Status>
             </td>
             <td>
               <Actions
@@ -47,13 +47,13 @@ const Table = ({ headers, body, handleDelete, handleView }) => {
             </td>
           </tr>
         ))}
-      </tbody>
+      </C.TBody>
     </C.Table>
   );
 };
 
 Table.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.object).isRequired,
   body: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleView: PropTypes.func.isRequired,

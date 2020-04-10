@@ -41,7 +41,25 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
         </li>
         <li>
           <MdModeEdit color={color.delivered} size={16} />
-          <Link to={`/parcel/edit/${parcel.id}`}>Editar</Link>
+          <Link
+            to={{
+              pathname: `/parcel/edit/`,
+              state: {
+                parcel_id: parcel.id,
+                product: parcel.product,
+                recipient: {
+                  value: parcel.recipient.id,
+                  label: parcel.recipient.name,
+                },
+                courier: {
+                  value: parcel.courier.id,
+                  label: parcel.courier.name,
+                },
+              },
+            }}
+          >
+            Editar
+          </Link>
         </li>
         <li>
           <MdDeleteForever color={color.alert} size={16} />

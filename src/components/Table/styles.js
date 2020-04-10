@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import color from '~/styles/colors';
+import statusStyles from '~/styles/statusColors';
 
 export const Table = styled.table`
   width: 100%;
@@ -8,39 +9,13 @@ export const Table = styled.table`
   border-collapse: separate;
   border-spacing: 0px 15px;
 
-  thead tr th {
-    padding-left: 25px;
-    color: ${color.fifth};
-    font-weight: 700;
-
-    &:last-child {
-      text-align: center;
-    }
-  }
-
   tbody tr {
     background: ${color.fourth};
   }
+`;
 
-  .image > div {
-    position: relative;
-
-    span {
-      margin-left: 35px;
-    }
-
-    img {
-      position: absolute;
-
-      width: 30px;
-      height: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-
-      border-radius: 50%;
-    }
-  }
-  tbody tr td {
+export const TBody = styled.tbody`
+  tr td {
     font-size: 14px;
     color: ${color.second};
     padding: 14px 0;
@@ -49,55 +24,10 @@ export const Table = styled.table`
 
     &:last-child {
       text-align: center;
-    }
+      padding-right: 12px;
 
-    .status {
-      width: max-content;
-      padding: 3px 8px;
-      border-radius: 12px;
-      background: #dff0df;
-      color: #2ca42b;
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-transform: uppercase;
-
-      &:before {
-        content: '';
-        height: 9px;
-        width: 9px;
-        margin-right: 5px;
-        background-color: #2ca42b;
-        display: inline-block;
-        border-radius: 50%;
-      }
-
-      &.-pending {
-        color: #c1bc35;
-        background: #f0f0df;
-
-        &:before {
-          background-color: #c1bc35;
-        }
-      }
-
-      &.-picked {
-        color: #4d85ee;
-        background: #bad2ff;
-
-        &:before {
-          background-color: #4d85ee;
-        }
-      }
-
-      &.-cancelled {
-        color: #de3b3b;
-        background: #fab0b0;
-
-        &:before {
-          background-color: #de3b3b;
-        }
+      @media (min-width: 700px) {
+        padding-right: 0px;
       }
     }
 
@@ -112,5 +42,97 @@ export const Table = styled.table`
         transform: translateY(-60%);
       }
     }
+  }
+`;
+
+export const Status = styled.span`
+  width: max-content;
+  padding: 3px 8px;
+  border-radius: 12px;
+
+  background: ${(props) => statusStyles[props.status].background};
+  color: ${(props) => statusStyles[props.status].color};
+
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  text-indent: -9999px;
+
+  @media (min-width: 700px) {
+    text-indent: inherit;
+  }
+
+  &:before {
+    content: '';
+    height: 9px;
+    width: 9px;
+
+    background-color: ${(props) => statusStyles[props.status].color};
+    display: inline-block;
+    border-radius: 50%;
+
+    @media (min-width: 700px) {
+      margin-right: 5px;
+    }
+  }
+`;
+
+export const TdNonMobile = styled.td`
+  display: none;
+
+  @media (min-width: 700px) {
+    display: table-cell;
+  }
+`;
+
+export const WrapperImageTd = styled.div`
+  display: flex;
+  position: relative;
+
+  span {
+    margin-left: 0px;
+
+    @media (min-width: 700px) {
+      display: initial;
+      margin-left: 40px;
+    }
+  }
+
+  img {
+    display: none;
+
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+
+    @media (min-width: 700px) {
+      display: inherit;
+    }
+  }
+`;
+
+export const TH = styled.th`
+  padding-left: 25px;
+  color: ${color.fifth};
+  font-weight: 700;
+
+  ${(props) =>
+    props.showMobile === 0 &&
+    css`
+      display: none;
+
+      @media (min-width: 700px) {
+        display: table-cell;
+      }
+    `}
+
+  &:last-child {
+    text-align: center;
+    padding-right: 20px;
   }
 `;

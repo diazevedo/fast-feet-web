@@ -5,40 +5,44 @@ import color from '~/styles/colors';
 export const Header = styled.header`
   width: 100%;
   max-width: 1440px;
-  /* height: 64px; */
   padding: 10px 32px;
   background: ${color.fourth};
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin: 0 auto;
-
   text-align: center;
+
+  @media (min-width: 700px) {
+    flex-direction: row;
+  }
 `;
 
 export const Navigation = styled.nav`
-  /* width: 670px; */
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
+  @media (min-width: 700px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   img {
     width: 135px;
-    /* height: 26px; */
   }
 
   ul {
-    /* width: 700px; */
     text-transform: uppercase;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
 
-    @media (min-width: 450px) {
+    @media (min-width: 475px) {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    @media (min-width: 700px) {
       &::before {
         content: '';
         height: 32px;
@@ -50,9 +54,8 @@ export const Navigation = styled.nav`
 `;
 
 export const User = styled.div`
-  margin-top: 10px;
-  /* text-align: center; */
   font-size: 14px;
+  text-align: center;
 
   p {
     color: ${color.fifth};
@@ -68,8 +71,7 @@ export const User = styled.div`
 export const MenuItem = styled.li`
   font-size: 15px;
   font-weight: ${(props) => (props.active === 1 ? 'bold' : '400')};
-  /* margin-right: 22px; */
-  /* text-align: center; */
+  padding-right: 25px;
 
   a {
     color: ${(props) => (props.active === 1 ? color.fifth : color.second)};

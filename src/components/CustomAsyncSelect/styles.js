@@ -1,4 +1,6 @@
-export default {
+import styled from 'styled-components';
+
+export const select = {
   menu: (styles) => ({
     ...styles,
     marginTop: '0px',
@@ -12,7 +14,7 @@ export default {
     ...styles,
 
     width: '100%',
-    height: '45px',
+    height: '50px',
 
     borderRadius: '4px',
     cursor: 'default',
@@ -38,3 +40,11 @@ export default {
     fontFamily: 'Roboto',
   }),
 };
+
+export const Wrapper = styled.div`
+  span {
+    color: #db7272;
+    display: inline-block;
+    margin-top: 5px;
+  }
+`;

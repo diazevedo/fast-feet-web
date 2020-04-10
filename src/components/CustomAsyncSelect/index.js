@@ -4,11 +4,12 @@ import { useField } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 import Select from 'react-select/async';
 
-import styles from './styles';
+import * as C from './styles';
+// import stylesComponent from './stylesComponent';
 
 export default function CustomAsyncSelect({ name, label, ...rest }) {
   const selectRef = useRef(null);
-  const { fieldName, registerField, defaultValue } = useField(name);
+  const { fieldName, registerField, defaultValue, error } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -25,7 +26,7 @@ export default function CustomAsyncSelect({ name, label, ...rest }) {
   }, [fieldName, registerField]);
 
   return (
-    <>
+    <C.Wrapper>
       <label htmlFor={`select-${name}`}>{label}</label>
       <Select
         id={`select-${name}`}
@@ -34,7 +35,7 @@ export default function CustomAsyncSelect({ name, label, ...rest }) {
         label="Single select"
         defaultValue={defaultValue}
         classNamePrefix="react-select"
-        styles={styles}
+        styles={C.select}
         theme={(theme) => ({
           ...theme,
           borderRadius: 0,
@@ -45,7 +46,7 @@ export default function CustomAsyncSelect({ name, label, ...rest }) {
         })}
         {...rest}
       />
-    </>
+    </C.Wrapper>
   );
 }
 

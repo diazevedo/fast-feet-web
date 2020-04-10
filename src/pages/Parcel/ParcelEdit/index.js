@@ -1,18 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useCallback } from 'react';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import PageTitle from '~/components/PageTitle';
 import ButtonIcon from '~/components/ButtonIcon';
 import CustomAsyncSelect from '~/components/CustomAsyncSelect';
 
 import api from '~/services/api';
+import schema from './schema';
 
 import * as C from './styles';
 import color from '~/styles/colors';
 
-const ParcelEdit = ({ match }) => {
+const ParcelEdit = () => {
+  const location = useLocation();
+  const { parcel_id } = location.state;
   const history = useHistory();
 
   const prepareDataForInputs = useCallback((data) => {
@@ -48,16 +51,38 @@ const ParcelEdit = ({ match }) => {
 
   const onClickButtonBack = () => history.push({ pathname: '/parcel' });
 
-  const handleSubmitForm = (data) => console.log(data);
+  const handleSubmitForm = async (data) => {
+    await api.put(`/parcels/${parcel_id}`, {
+      product: data.product,
+      courier_id: data.courier.value,
+      recipient_id: data.recipient.value,
+    });
+  };
 
   return (
     <C.Main>
-      <PageTitle>Edit Parcel</PageTitle>
-      <ButtonIcon type="button" text="retornar" handleClick={onClickButtonBack}>
-        <MdKeyboardArrowLeft color={color.fourth} size={25} />
-      </ButtonIcon>
+      <C.FormCustom
+        onSubmit={handleSubmitForm}
+        initialData={location.state}
+        schema={schema}
+      >
+        <C.Header>
+          <PageTitle>Edit Parcel</PageTitle>
+          <C.WrapperButtton>
+            <ButtonIcon
+              type="button"
+              text="cancel"
+              handleClick={onClickButtonBack}
+            >
+              <MdKeyboardArrowLeft color={color.fourth} size={25} />
+            </ButtonIcon>
 
-      <C.FormCustom onSubmit={handleSubmitForm}>
+            <ButtonIcon text="Save" type="submit">
+              <MdDone color={color.fourth} size={22} />
+            </ButtonIcon>
+          </C.WrapperButtton>
+        </C.Header>
+
         <C.WrapperSelectGroup>
           <CustomAsyncSelect
             name="recipient"
@@ -83,10 +108,6 @@ const ParcelEdit = ({ match }) => {
           id="product"
           placeholder="e.g Laptop"
         />
-
-        <ButtonIcon text="Save" type="submit">
-          <MdDone color={color.fourth} size={22} />
-        </ButtonIcon>
       </C.FormCustom>
     </C.Main>
   );

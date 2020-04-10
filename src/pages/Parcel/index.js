@@ -21,13 +21,34 @@ import color from '~/styles/colors';
 
 const data = {
   headers: [
-    'ID',
-    'Destinatário',
-    'Entregador',
-    'Cidade',
-    'Estado',
-    'Status',
-    'Actions',
+    {
+      text: 'ID',
+      showMobile: 1,
+    },
+    {
+      text: 'Recipient',
+      showMobile: 1,
+    },
+    {
+      text: 'Courier',
+      showMobile: 1,
+    },
+    {
+      text: 'City',
+      showMobile: 0,
+    },
+    {
+      text: 'State',
+      showMobile: 0,
+    },
+    {
+      text: 'Status',
+      showMobile: 1,
+    },
+    {
+      text: 'Actions',
+      showMobile: 0,
+    },
   ],
   parcels: [
     {
@@ -117,12 +138,12 @@ export default function Parcel() {
 
       <PageTitle>Parcels management</PageTitle>
 
-      <div className="wrapper-buttons">
+      <C.WrapperButtons>
         <SearchInput placeholder="buscar encomenda" />
         <ButtonIcon text="register">
           <MdAdd color={color.fourth} size={30} />
         </ButtonIcon>
-      </div>
+      </C.WrapperButtons>
 
       <Table
         headers={data.headers}

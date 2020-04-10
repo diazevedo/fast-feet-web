@@ -8,7 +8,7 @@ import * as C from './styles';
 import logo from '~/assets/images/header-logo.png';
 
 const menus = [
-  { text: 'parcel', path: 'parcel' },
+  { text: 'parcel', path: '/' },
   { text: 'couriers', path: '/couriers' },
   { text: 'recipients', path: 'recipients' },
   { text: 'issues', path: 'issues' },
@@ -51,7 +51,7 @@ export default function Header() {
       <C.User>
         <p>{user.name}</p>
         <button type="button" onClick={handleLogout}>
-          exit
+          logout
         </button>
       </C.User>
     </C.Header>
