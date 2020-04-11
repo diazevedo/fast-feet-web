@@ -127,7 +127,8 @@ export default function Parcel() {
     };
     setParcelSelected(parcelFormatted);
   };
-
+  const handleRegisterParcel = () =>
+    history.push({ pathname: '/parcel/create' });
   return (
     <C.Main>
       {modalOpened ? (
@@ -140,7 +141,7 @@ export default function Parcel() {
 
       <C.WrapperButtons>
         <SearchInput placeholder="buscar encomenda" />
-        <ButtonIcon text="register">
+        <ButtonIcon text="register" handleClick={handleRegisterParcel}>
           <MdAdd color={color.fourth} size={30} />
         </ButtonIcon>
       </C.WrapperButtons>

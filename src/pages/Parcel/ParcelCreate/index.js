@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import api from '~/services/api';
@@ -20,15 +20,13 @@ const schema = Yup.object().shape({
 });
 
 const ParcelEdit = () => {
-  const location = useLocation();
-  const { parcel_id } = location.state;
   const history = useHistory();
 
   const onClickButtonBack = () => history.push({ pathname: '/parcel' });
 
   const handleSubmitForm = async (data) => {
     try {
-      await api.put(`/parcels/${parcel_id}`, {
+      await api.post('/parcels', {
         product: data.product,
         courier_id: data.courier.value,
         recipient_id: data.recipient.value,
@@ -43,8 +41,8 @@ const ParcelEdit = () => {
       <FormParcel
         handleSubmit={handleSubmitForm}
         schema={schema}
-        initialData={location.state}
-        title="Edit Parcel"
+        initialData={{}}
+        title="Create Parcel"
         onClickButtonBack={onClickButtonBack}
         loadRecipients={loadOptions.loadRecipients}
         loadCouriers={loadOptions.loadCouriers}
