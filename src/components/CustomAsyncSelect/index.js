@@ -9,7 +9,7 @@ import * as C from './styles';
 
 export default function CustomAsyncSelect({ name, label, ...rest }) {
   const selectRef = useRef(null);
-  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const { fieldName, registerField, defaultValue } = useField(name);
 
   useEffect(() => {
     registerField({
@@ -32,16 +32,15 @@ export default function CustomAsyncSelect({ name, label, ...rest }) {
         id={`select-${name}`}
         cacheOptions
         ref={selectRef}
-        label="Single select"
         defaultValue={defaultValue}
         classNamePrefix="react-select"
         styles={C.select}
         theme={(theme) => ({
           ...theme,
-          borderRadius: 0,
+          borderRadius: 4,
           colors: {
             ...theme.colors,
-            primary: '#ddd',
+            primary: '#ddd7',
           },
         })}
         {...rest}

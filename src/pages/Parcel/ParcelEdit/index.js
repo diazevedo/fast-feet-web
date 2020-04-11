@@ -3,16 +3,25 @@ import React, { useEffect, useCallback } from 'react';
 import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import * as Yup from 'yup';
 import PageTitle from '~/components/PageTitle';
 import ButtonIcon from '~/components/ButtonIcon';
 import CustomAsyncSelect from '~/components/CustomAsyncSelect';
 
 import api from '~/services/api';
-import schema from './schema';
+// import schema from './schema';
 
 import * as C from './styles';
 import color from '~/styles/colors';
 
+// constants password length
+const schema = Yup.object().shape({
+  recipient: Yup.object().required('Please select a courier.'),
+  courier: Yup.object().required('Please select a recipient.'),
+  product: Yup.string()
+    .min(2, 'A product name must be longer than 2 characteres.')
+    .required('Product name  is required.'),
+});
 const ParcelEdit = () => {
   const location = useLocation();
   const { parcel_id } = location.state;
@@ -23,7 +32,7 @@ const ParcelEdit = () => {
       value: d.id,
       label: d.name,
     }));
-  });
+  }, []);
 
   const loadRecipients = useCallback(
     async (name = '') => {
@@ -44,19 +53,23 @@ const ParcelEdit = () => {
     [prepareDataForInputs]
   );
 
-  useEffect(() => {
-    loadRecipients();
-    loadCouriers();
-  }, [loadRecipients, loadCouriers]);
+  // useEffect(() => {
+  //   loadRecipients();
+  //   loadCouriers();
+  // }, [loadRecipients, loadCouriers]);
 
   const onClickButtonBack = () => history.push({ pathname: '/parcel' });
 
   const handleSubmitForm = async (data) => {
-    await api.put(`/parcels/${parcel_id}`, {
-      product: data.product,
-      courier_id: data.courier.value,
-      recipient_id: data.recipient.value,
-    });
+    try {
+      await api.put(`/parcels/${parcel_id}`, {
+        product: data.product,
+        courier_id: data.courier.value,
+        recipient_id: data.recipient.value,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -88,8 +101,10 @@ const ParcelEdit = () => {
             name="recipient"
             label="Recipient"
             defaultOptions
+            cacheOptions
             placeholder="e.g John Smith"
             loadOptions={loadRecipients}
+            noOptionsMessage={() => 'No recipient found.'}
           />
 
           <CustomAsyncSelect
@@ -98,6 +113,7 @@ const ParcelEdit = () => {
             defaultOptions
             placeholder="e.g Peter Scholes"
             loadOptions={loadCouriers}
+            noOptionsMessage={() => 'No courier found.'}
           />
         </C.WrapperSelectGroup>
 
