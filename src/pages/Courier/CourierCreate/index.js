@@ -7,48 +7,48 @@ import api from '~/services/api';
 // import schema from './schema';
 import * as loadOptions from '~/utils/functions/parcel';
 
-import FormParcel from '~/components/FormParcel';
+import FormCourier from '~/components/FormCourier';
+
 import * as C from './styles';
 
 // constants password length
-const schema = Yup.object().shape({
-  recipient: Yup.object().required('Please select a courier.'),
-  courier: Yup.object().required('Please select a recipient.'),
-  product: Yup.string()
-    .min(2, 'A product name must be longer than 2 characteres.')
-    .required('Product name  is required.'),
-});
+// const schema = Yup.object().shape({
+//   recipient: Yup.object().required('Please select a courier.'),
+//   courier: Yup.object().required('Please select a recipient.'),
+//   product: Yup.string()
+//     .min(2, 'A product name must be longer than 2 characteres.')
+//     .required('Product name  is required.'),
+// });
 
-const ParcelEdit = () => {
+const CourierCreate = () => {
   const history = useHistory();
 
   const onClickButtonBack = () => history.push({ pathname: '/parcel' });
 
   const handleSubmitForm = async (data) => {
+    console.log(data);
     try {
-      await api.post('/parcels', {
-        product: data.product,
-        courier_id: data.courier.value,
-        recipient_id: data.recipient.value,
+      const res = await api.post('admin/couriers', {
+        name: data.name,
+        email: data.email,
+        avatar_id: data.avatar_id,
       });
+      console.log(res);
     } catch (error) {
-      throw new Error('error');
+      console.log(error);
+      throw new Error(error);
     }
   };
 
   return (
     <C.Main>
-      <FormParcel
+      <FormCourier
         handleSubmit={handleSubmitForm}
-        schema={schema}
-        initialData={{}}
-        title="Create Parcel"
+        title="Courier Create"
         onClickButtonBack={onClickButtonBack}
-        loadRecipients={loadOptions.loadRecipients}
-        loadCouriers={loadOptions.loadCouriers}
       />
     </C.Main>
   );
 };
 
-export default ParcelEdit;
+export default CourierCreate;

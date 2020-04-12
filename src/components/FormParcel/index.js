@@ -40,35 +40,37 @@ const FormParcel = ({
           </ButtonIcon>
         </C.WrapperButtton>
       </C.Header>
+      <C.FormBody>
+        <C.WrapperSelectGroup>
+          <CustomAsyncSelect
+            name="recipient"
+            label="Recipient"
+            defaultOptions
+            cacheOptions
+            placeholder="e.g John Smith"
+            loadOptions={loadRecipients}
+            noOptionsMessage={() => 'No recipient found.'}
+          />
+        </C.WrapperSelectGroup>
+        <C.WrapperSelectGroup>
+          <CustomAsyncSelect
+            name="courier"
+            label="Courier"
+            defaultOptions
+            placeholder="e.g Peter Scholes"
+            loadOptions={loadCouriers}
+            noOptionsMessage={() => 'No courier found.'}
+          />
+        </C.WrapperSelectGroup>
 
-      <C.WrapperSelectGroup>
-        <CustomAsyncSelect
-          name="recipient"
-          label="Recipient"
-          defaultOptions
-          cacheOptions
-          placeholder="e.g John Smith"
-          loadOptions={loadRecipients}
-          noOptionsMessage={() => 'No recipient found.'}
+        <label htmlFor="product">Product</label>
+        <C.InputText
+          type="text"
+          name="product"
+          id="product"
+          placeholder="e.g Laptop"
         />
-
-        <CustomAsyncSelect
-          name="courier"
-          label="Courier"
-          defaultOptions
-          placeholder="e.g Peter Scholes"
-          loadOptions={loadCouriers}
-          noOptionsMessage={() => 'No courier found.'}
-        />
-      </C.WrapperSelectGroup>
-
-      <label htmlFor="product">Product</label>
-      <C.InputText
-        type="text"
-        name="product"
-        id="product"
-        placeholder="e.g Laptop"
-      />
+      </C.FormBody>
     </C.FormCustom>
   );
 };
