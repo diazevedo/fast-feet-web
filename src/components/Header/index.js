@@ -9,8 +9,8 @@ import logo from '~/assets/images/header-logo.png';
 
 const menus = [
   { text: 'parcel', path: '/' },
-  { text: 'couriers', path: '/couriers' },
-  { text: 'recipients', path: 'recipients' },
+  { text: 'couriers', path: '/courier' },
+  { text: 'recipients', path: 'recipient' },
   { text: 'issues', path: 'issues' },
 ];
 

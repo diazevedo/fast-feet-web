@@ -1,82 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { MdAdd } from 'react-icons/md';
 import { format, parseISO } from 'date-fns';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import api from '~/services/api';
 import history from '~/services/history';
-
-import PageTitle from '~/components/PageTitle';
-import SearchInput from '~/components/SearchInput';
-import ButtonIcon from '~/components/ButtonIcon';
-import Table from '~/components/Table';
-import Modal from '~/components/Modal';
-
+import { parcelStatus } from '~/utils/functions/parcel';
 import { hideModal } from '~/store/modules/modal/actions';
 
+import HeaderMainPage from '~/components/HeaderMainPage';
+import * as T from '~/components/TableComponents';
+import Modal from '~/components/Modal';
+import Status from '~/components/Status';
+import Actions from '~/components/Actions';
+
 import * as C from './styles';
-
-import color from '~/styles/colors';
-
-const data = {
-  headers: [
-    {
-      text: 'ID',
-      showMobile: 1,
-    },
-    {
-      text: 'Recipient',
-      showMobile: 1,
-    },
-    {
-      text: 'Courier',
-      showMobile: 1,
-    },
-    {
-      text: 'City',
-      showMobile: 0,
-    },
-    {
-      text: 'State',
-      showMobile: 0,
-    },
-    {
-      text: 'Status',
-      showMobile: 1,
-    },
-    {
-      text: 'Actions',
-      showMobile: 0,
-    },
-  ],
-  parcels: [
-    {
-      id: '#01',
-      recipient: 'Ludwig van Beethoven',
-      courier: 'John Doe',
-      city: 'Rio do Sul',
-      state: 'Santa Catarina',
-      status: 'ENTREGUE',
-    },
-    {
-      id: '#02',
-      recipient: 'Ludwig van Beethoven',
-      courier: 'John Doe',
-      city: 'Rio do Sul',
-      state: 'Santa Catarina',
-      status: 'ENTREGUE',
-    },
-  ],
-};
-
-const parcelStatus = (parcel) => {
-  if (parcel.canceled_at) return 'cancelled';
-  if (parcel.end_date) return 'delivered';
-  if (parcel.start_date) return 'picked';
-
-  return 'pending';
-};
+import header from '~/utils/data/headerParcels';
 
 const formatDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
 
@@ -127,8 +65,10 @@ export default function Parcel() {
     };
     setParcelSelected(parcelFormatted);
   };
+
   const handleRegisterParcel = () =>
     history.push({ pathname: '/parcel/create' });
+
   return (
     <C.Main>
       {modalOpened ? (
@@ -137,21 +77,59 @@ export default function Parcel() {
         ''
       )}
 
-      <PageTitle>Parcels management</PageTitle>
-
-      <C.WrapperButtons>
-        <SearchInput placeholder="buscar encomenda" />
-        <ButtonIcon text="register" handleClick={handleRegisterParcel}>
-          <MdAdd color={color.fourth} size={30} />
-        </ButtonIcon>
-      </C.WrapperButtons>
-
-      <Table
-        headers={data.headers}
-        body={parcels}
-        handleDelete={handleDelete}
-        handleView={handleViewParcel}
+      <HeaderMainPage
+        title="Parcels management"
+        placeholder="Parcels recipient"
+        textButton="register"
+        handleButton={handleRegisterParcel}
       />
+
+      <T.Table>
+        <T.THead header={header} />
+        <T.TBody>
+          {parcels.map((parcel) => (
+            <T.TR>
+              <T.TD>{parcel.id}</T.TD>
+              <T.TD>{parcel.recipient.name}</T.TD>
+              <T.TD>
+                <C.WrapperImageTd>
+                  <T.TDImage
+                    src={
+                      (parcel.courier.avatar && parcel.courier.avatar.url) ||
+                      'https://api.adorable.io/avatars/50/abott@adorable.png'
+                    }
+                  />
+                  <span>{parcel.courier.name}</span>
+                </C.WrapperImageTd>
+              </T.TD>
+              <T.TD showMobile={0}>{parcel.recipient.city}</T.TD>
+              <T.TD showMobile={0}>{parcel.recipient.state}</T.TD>
+              <T.TD>
+                <Status status={parcel.status}>{parcel.status}</Status>
+              </T.TD>
+              <T.TD>
+                <Actions
+                  handleDelete={handleDelete}
+                  handleView={handleViewParcel}
+                  goTo="/parcel/edit/"
+                  state={{
+                    parcel_id: parcel.id,
+                    product: parcel.product,
+                    recipient: {
+                      value: parcel.recipient.id,
+                      label: parcel.recipient.name,
+                    },
+                    courier: {
+                      value: parcel.courier.id,
+                      label: parcel.courier.name,
+                    },
+                  }}
+                />
+              </T.TD>
+            </T.TR>
+          ))}
+        </T.TBody>
+      </T.Table>
     </C.Main>
   );
 }

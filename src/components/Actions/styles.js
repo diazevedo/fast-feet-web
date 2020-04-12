@@ -55,6 +55,7 @@ export const Container = styled.div`
       button {
         color: #999999;
         margin-left: 10px;
+        font-size: 16px;
       }
     }
   }

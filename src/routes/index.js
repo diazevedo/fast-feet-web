@@ -7,19 +7,16 @@ import Login from '~/pages/Login';
 import Parcel from '~/pages/Parcel';
 import ParcelEdit from '~/pages/Parcel/ParcelEdit';
 import ParcelCreate from '~/pages/Parcel/ParcelCreate';
-
-function Couriers() {
-  return <h1>Couriers</h1>;
-}
+import Courier from '~/pages/Courier';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Login} />
-      <Route path="/parcel/create" component={ParcelCreate} isPrivate />
+      <Route path="/courier" component={Courier} isPrivate />
+      <Route path="/parcel/create/" component={ParcelCreate} isPrivate />
       <Route path="/parcel/edit/" component={ParcelEdit} isPrivate />
       <Route path="/parcel" component={Parcel} isPrivate />
-      <Route path="/couriers" component={Couriers} isPrivate />
       <Route path="/" component={() => <h1>not foun</h1>} />
     </Switch>
   );

@@ -16,7 +16,7 @@ import { Container } from './styles';
 import color from '~/styles/colors';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const Actions = ({ parcel, handleDelete, handleView }) => {
+const Actions = ({ data, handleDelete, handleView, goTo, state }) => {
   const [visible, setVisibility] = useState(false);
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
       <ul>
         <li>
           <MdVisibility color={color.primary} size={16} />
-          <button type="button" onClick={() => handleClickView(parcel)}>
+          <button type="button" onClick={() => handleClickView(data)}>
             View
           </button>
         </li>
@@ -43,19 +43,8 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
           <MdModeEdit color={color.delivered} size={16} />
           <Link
             to={{
-              pathname: `/parcel/edit/`,
-              state: {
-                parcel_id: parcel.id,
-                product: parcel.product,
-                recipient: {
-                  value: parcel.recipient.id,
-                  label: parcel.recipient.name,
-                },
-                courier: {
-                  value: parcel.courier.id,
-                  label: parcel.courier.name,
-                },
-              },
+              pathname: goTo,
+              state,
             }}
           >
             Editar
@@ -72,7 +61,7 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
                 buttons: [
                   {
                     label: 'Yes',
-                    onClick: () => handleDelete(parcel),
+                    onClick: () => handleDelete(data),
                   },
                   {
                     label: 'No',
@@ -90,11 +79,12 @@ const Actions = ({ parcel, handleDelete, handleView }) => {
 };
 
 Actions.propTypes = {
-  parcel: PropTypes.shape({
+  data: PropTypes.shape({
     id: PropTypes.number,
   }).isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleView: PropTypes.func.isRequired,
+  goTo: PropTypes.string.isRequired,
 };
 
 export default Actions;
