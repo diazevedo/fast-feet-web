@@ -17,7 +17,7 @@ export const TH = styled.th`
     `}
 
   &:last-child {
-    text-align: center;
-    padding-right: 20px;
+    text-align: right;
+    padding-right: 10px;
   }
 `;

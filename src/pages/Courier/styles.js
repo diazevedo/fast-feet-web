@@ -10,3 +10,25 @@ export const Main = styled.div`
     margin-top: 10px;
   }
 `;
+
+export const WrapperImageTd = styled.div`
+  display: flex;
+  position: relative;
+  /* align-items: baseline; */
+
+  img {
+    position: relative;
+    top: 0;
+    transform: translateY(0);
+    display: initial;
+  }
+
+  span {
+    margin-left: 5px;
+
+    @media (min-width: 700px) {
+      display: initial;
+      margin-left: 40px;
+    }
+  }
+`;

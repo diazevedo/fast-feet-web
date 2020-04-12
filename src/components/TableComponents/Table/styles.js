@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import color from '~/styles/colors';
 
 export const Table = styled.table`

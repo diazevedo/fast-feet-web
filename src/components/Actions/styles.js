@@ -3,13 +3,17 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
   ul {
     width: 150px;
-    height: 120px;
     font-size: 16px;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 25px;
+    right: 39px;
+    transform: translateX(68%);
     display: ${(props) => (props.visible === 1 ? 'block' : 'none')};
 
     padding: 10px;

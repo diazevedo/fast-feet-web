@@ -21,7 +21,7 @@ const schema = Yup.object().shape({
 
 const ParcelEdit = () => {
   const location = useLocation();
-  console.log(location.state);
+
   const { parcel_id } = location.state;
   const history = useHistory();
 

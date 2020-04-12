@@ -63,6 +63,7 @@ export default function Parcel() {
         ? formatDate(response.data.end_date)
         : 'To be delivered',
     };
+
     setParcelSelected(parcelFormatted);
   };
 
@@ -109,6 +110,7 @@ export default function Parcel() {
               </T.TD>
               <T.TD>
                 <Actions
+                  viewOption
                   handleDelete={handleDelete}
                   handleView={handleViewParcel}
                   goTo="/parcel/edit/"
@@ -124,6 +126,7 @@ export default function Parcel() {
                       label: parcel.courier.name,
                     },
                   }}
+                  data={parcel}
                 />
               </T.TD>
             </T.TR>

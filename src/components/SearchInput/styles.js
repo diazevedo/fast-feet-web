@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import color from '~/styles/colors';
 
 export const Wrapper = styled.div`
-  width: 237px;
+  width: 100%;
   height: 36px;
   border: 1px solid ${color.third};
   border-radius: 4px;

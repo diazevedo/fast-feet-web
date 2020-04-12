@@ -16,7 +16,14 @@ import { Container } from './styles';
 import color from '~/styles/colors';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const Actions = ({ data, handleDelete, handleView, goTo, state }) => {
+const Actions = ({
+  data,
+  handleDelete,
+  handleView,
+  goTo,
+  state,
+  viewOption = false,
+}) => {
   const [visible, setVisibility] = useState(false);
   const dispatch = useDispatch();
 
@@ -33,12 +40,17 @@ const Actions = ({ data, handleDelete, handleView, goTo, state }) => {
         onClick={() => setVisibility(!visible)}
       />
       <ul>
-        <li>
-          <MdVisibility color={color.primary} size={16} />
-          <button type="button" onClick={() => handleClickView(data)}>
-            View
-          </button>
-        </li>
+        {viewOption ? (
+          <li>
+            <MdVisibility color={color.primary} size={16} />
+            <button type="button" onClick={() => handleClickView(data)}>
+              View
+            </button>
+          </li>
+        ) : (
+          ''
+        )}
+
         <li>
           <MdModeEdit color={color.delivered} size={16} />
           <Link
@@ -47,7 +59,7 @@ const Actions = ({ data, handleDelete, handleView, goTo, state }) => {
               state,
             }}
           >
-            Editar
+            Edit
           </Link>
         </li>
         <li>
@@ -56,7 +68,7 @@ const Actions = ({ data, handleDelete, handleView, goTo, state }) => {
             type="button"
             onClick={() =>
               confirmAlert({
-                title: 'Confirm to submit',
+                title: 'Confirm to delete',
                 message: 'Are you sure to do this.',
                 buttons: [
                   {
@@ -70,7 +82,7 @@ const Actions = ({ data, handleDelete, handleView, goTo, state }) => {
               })
             }
           >
-            Excluir
+            Delete
           </button>
         </li>
       </ul>

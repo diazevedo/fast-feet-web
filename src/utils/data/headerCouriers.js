@@ -4,19 +4,20 @@ export default [
     showMobile: 1,
   },
   {
-    text: 'Name',
-    showMobile: 1,
-  },
-  {
     text: 'Photo',
     showMobile: 1,
   },
+  {
+    text: 'Name',
+    showMobile: 1,
+  },
+
   {
     text: 'Email',
     showMobile: 0,
   },
   {
     text: 'Actions',
-    showMobile: 0,
+    showMobile: 1,
   },
 ];
