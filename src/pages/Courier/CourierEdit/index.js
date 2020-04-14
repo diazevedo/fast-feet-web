@@ -1,23 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-// import * as Yup from 'yup';
-
-import api from '~/services/api';
-// import schema from './schema';
+import { toast } from 'react-toastify';
 
 import FormCourier from '~/components/FormCourier';
-
 import * as C from './styles';
 
-// constants password length
-// const schema = Yup.object().shape({
-//   recipient: Yup.object().required('Please select a courier.'),
-//   courier: Yup.object().required('Please select a recipient.'),
-//   product: Yup.string()
-//     .min(2, 'A product name must be longer than 2 characteres.')
-//     .required('Product name  is required.'),
-// });
+import api from '~/services/api';
 
 const CourierCreate = () => {
   const history = useHistory();
@@ -33,7 +22,10 @@ const CourierCreate = () => {
         email: data.email,
         avatar_id: data.avatar_id,
       });
+
+      toast.success('The courier was updated.');
     } catch (error) {
+      toast.error('Something went wrong.');
       throw new Error(error);
     }
   };

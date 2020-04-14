@@ -1,42 +1,29 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
-import color from '~/styles/colors';
+import PropTypes from 'prop-types';
 
-import * as C from './styles';
-import PageTitle from '~/components/PageTitle';
-import ButtonIcon from '~/components/ButtonIcon';
+import Form from '~/components/Form/Form';
+import FormHeader from '~/components/Form/FormHeader';
+import FormBody from '~/components/Form/FormBody';
+import Input from '~/components/Input';
 import AvatarInput from './AvatarInput';
 
 export default function FormCourier({
   handleSubmit,
   title,
   onClickButtonBack,
-  initialData = {},
+  initialData,
 }) {
   return (
-    <C.FormCustom onSubmit={handleSubmit} initialData={initialData}>
-      <C.Header>
-        <PageTitle>{title}</PageTitle>
-        <C.WrapperButtton>
-          <ButtonIcon
-            type="button"
-            text="cancel"
-            handleClick={onClickButtonBack}
-          >
-            <MdKeyboardArrowLeft color={color.fourth} size={25} />
-          </ButtonIcon>
+    <Form handleSubmit={handleSubmit} initialData={initialData}>
+      <FormHeader title={title} onClickButtonBack={onClickButtonBack} />
 
-          <ButtonIcon text="Save" type="submit">
-            <MdDone color={color.fourth} size={22} />
-          </ButtonIcon>
-        </C.WrapperButtton>
-      </C.Header>
-      <C.FormBody>
+      <FormBody>
         <AvatarInput name="avatar_id" />
 
         <label htmlFor="Name">Name</label>
-        <C.InputText
+        <Input
           type="text"
           name="name"
           id="name"
@@ -44,13 +31,26 @@ export default function FormCourier({
         />
 
         <label htmlFor="email">Email</label>
-        <C.InputText
+        <Input
           type="email"
           name="email"
           id="email"
           placeholder="e.g john@fastfeet.com"
         />
-      </C.FormBody>
-    </C.FormCustom>
+      </FormBody>
+    </Form>
   );
 }
+
+FormCourier.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  // schema: PropTypes.object,
+  initialData: PropTypes.object,
+  title: PropTypes.string.isRequired,
+  onClickButtonBack: PropTypes.func.isRequired,
+};
+
+FormCourier.defaultProps = {
+  // schema: {},
+  initialData: {},
+};

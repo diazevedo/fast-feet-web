@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef, useEffect } from 'react';
-import { useField } from '@rocketseat/unform';
+import { useField } from '@unform/core';
 import PropTypes from 'prop-types';
 import Select from 'react-select/async';
 

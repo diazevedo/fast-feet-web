@@ -7,7 +7,7 @@ import * as C from './styles';
 import PageTitle from '~/components/PageTitle';
 import ButtonIcon from '~/components/ButtonIcon';
 
-export default function FormCourier({
+export default function FormRecipient({
   handleSubmit,
   title,
   onClickButtonBack,

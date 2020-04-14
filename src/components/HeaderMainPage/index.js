@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdAdd } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
 import * as C from './styles';
 import color from '~/styles/colors';
@@ -21,6 +22,13 @@ const HeaderMainPage = ({ title, placeholder, textButton, handleButton }) => {
       </C.WrapperButtons>
     </C.Header>
   );
+};
+
+HeaderMainPage.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  textButton: PropTypes.string.isRequired,
+  handleButton: PropTypes.func.isRequired,
 };
 
 export default HeaderMainPage;
