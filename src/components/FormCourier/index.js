@@ -12,9 +12,10 @@ export default function FormCourier({
   handleSubmit,
   title,
   onClickButtonBack,
+  initialData = {},
 }) {
   return (
-    <C.FormCustom onSubmit={handleSubmit}>
+    <C.FormCustom onSubmit={handleSubmit} initialData={initialData}>
       <C.Header>
         <PageTitle>{title}</PageTitle>
         <C.WrapperButtton>

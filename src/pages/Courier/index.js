@@ -64,21 +64,14 @@ export default function Courier() {
               <T.TD>
                 <Actions
                   handleDelete={handleDelete}
-                  handleView={console.log}
+                  handleView={{}}
                   goTo="/courier/edit/"
-                  // state={{
-                  //   parcel_id: courier.id,
-                  //   product: courier.product,
-                  //   recipient: {
-                  //     value: courier.recipient.id,
-                  //     label: courier.recipient.name,
-                  //   },
-                  //   courier: {
-                  //     value: parcel.courier.id,
-                  //     label: parcel.courier.name,
-                  //   },
-                  // }}
-                  state={{}}
+                  state={{
+                    courier_id: courier.id,
+                    name: courier.name,
+                    email: courier.email,
+                    avatar: courier.avatar,
+                  }}
                 />
               </T.TD>
             </T.TR>

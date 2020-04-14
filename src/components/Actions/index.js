@@ -95,7 +95,7 @@ Actions.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   handleDelete: PropTypes.func.isRequired,
-  handleView: PropTypes.func.isRequired,
+  handleView: PropTypes.func,
   goTo: PropTypes.string.isRequired,
 };
 

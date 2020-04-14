@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 
 import api from '~/services/api';
 // import schema from './schema';
-import * as loadOptions from '~/utils/functions/parcel';
 
 import FormCourier from '~/components/FormCourier';
 
@@ -23,19 +22,16 @@ import * as C from './styles';
 const CourierCreate = () => {
   const history = useHistory();
 
-  const onClickButtonBack = () => history.push({ pathname: '/parcel' });
+  const onClickButtonBack = () => history.push({ pathname: '/courier' });
 
   const handleSubmitForm = async (data) => {
-    console.log(data);
     try {
-      const res = await api.post('admin/couriers', {
+      await api.post('admin/couriers', {
         name: data.name,
         email: data.email,
         avatar_id: data.avatar_id,
       });
-      console.log(res);
     } catch (error) {
-      console.log(error);
       throw new Error(error);
     }
   };

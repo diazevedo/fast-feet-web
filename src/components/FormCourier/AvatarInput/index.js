@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 import api from '~/services/api';
 
-import { Container } from './styles';
+import * as C from './styles';
+
+import addImage from '~/assets/images/insert-photo.png';
 
 const AvatarInput = () => {
   const { defaultValue, registerField } = useField('avatar');
@@ -21,9 +23,9 @@ const AvatarInput = () => {
       });
     }
   }, [ref]); //eslint-disable-line
-  //registerField is linking the input with the form. So the form knows about this element
+  // registerField is linking the input with the form. So the form knows about this element
 
-  const handleChange = async event => {
+  const handleChange = async (event) => {
     const data = new FormData();
 
     data.append('file', event.target.files[0]);
@@ -37,16 +39,16 @@ const AvatarInput = () => {
   };
 
   return (
-    <Container>
+    <C.Container>
       <label htmlFor="avatar">
-        <img
-          src={
-            preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'
-          }
-          alt="User avatar"
-        />
-        {/*data-*: it is created by @rocketseat/unform. It can have any name aftet the hifen*/}
-        {/*ref: it is connecting the element to the ref created above*/}
+        {preview ? (
+          <C.AvatarImage src={preview} alt="user avatar" />
+        ) : (
+          <C.InsertImage>
+            <img src={addImage} alt="add user avatar" />
+            <figcaption>Add photo</figcaption>
+          </C.InsertImage>
+        )}
         <input
           type="file"
           id="avatar"
@@ -56,7 +58,7 @@ const AvatarInput = () => {
           ref={ref}
         />
       </label>
-    </Container>
+    </C.Container>
   );
 };
 
