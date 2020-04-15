@@ -1,37 +1,29 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-// import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 import api from '~/services/api';
-// import schema from './schema';
 
-import FormCourier from '~/components/FormCourier';
+import FormRecipient from '~/components/FormRecipient';
 
 import * as C from './styles';
 
-// constants password length
-// const schema = Yup.object().shape({
-//   recipient: Yup.object().required('Please select a courier.'),
-//   courier: Yup.object().required('Please select a recipient.'),
-//   product: Yup.string()
-//     .min(2, 'A product name must be longer than 2 characteres.')
-//     .required('Product name  is required.'),
-// });
-
-const CourierCreate = () => {
+const RecipientCreate = () => {
   const history = useHistory();
-  const location = useLocation();
-  const { courier_id } = location.state;
+  const { recipient_id } = history.location.state;
 
-  const onClickButtonBack = () => history.push({ pathname: '/courier' });
+  const onClickButtonBack = () => history.push({ pathname: '/recipient' });
 
   const handleSubmitForm = async (data) => {
     try {
-      await api.put(`admin/couriers/${courier_id}`, {
+      await api.put(`/recipients/${recipient_id}`, {
         name: data.name,
-        email: data.email,
-        avatar_id: data.avatar_id,
+        street: data.street,
+        number: data.number,
+        address_complement: data.address,
+        city: data.city,
+        state: data.state,
+        post_code: data.post_code,
       });
     } catch (error) {
       throw new Error(error);
@@ -40,14 +32,14 @@ const CourierCreate = () => {
 
   return (
     <C.Main>
-      <FormCourier
+      <FormRecipient
         handleSubmit={handleSubmitForm}
-        title="Courier Edit"
-        initialData={location.state}
+        title="Edit recipient"
+        initialData={history.location.state.recipient}
         onClickButtonBack={onClickButtonBack}
       />
     </C.Main>
   );
 };
 
-export default CourierCreate;
+export default RecipientCreate;

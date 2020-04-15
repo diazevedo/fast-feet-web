@@ -17,8 +17,12 @@ const RecipientCreate = () => {
     try {
       await api.post('/recipients', {
         name: data.name,
-        email: data.email,
-        avatar_id: data.avatar_id,
+        street: data.street,
+        number: data.number,
+        address_complement: data.address,
+        city: data.city,
+        state: data.state,
+        post_code: data.post_code,
       });
     } catch (error) {
       throw new Error(error);

@@ -1,91 +1,74 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { MdDone, MdKeyboardArrowLeft } from 'react-icons/md';
-import color from '~/styles/colors';
+import PropTypes from 'prop-types';
 
 import * as C from './styles';
-import PageTitle from '~/components/PageTitle';
-import ButtonIcon from '~/components/ButtonIcon';
+import Form from '~/components/Form/Form';
+import FormHeader from '~/components/Form/FormHeader';
+import Input from '~/components/Input';
 
 export default function FormRecipient({
   handleSubmit,
   title,
   onClickButtonBack,
-  initialData = {},
+  initialData,
 }) {
   return (
-    <C.FormCustom onSubmit={handleSubmit} initialData={initialData}>
-      <C.Header>
-        <PageTitle>{title}</PageTitle>
-        <C.WrapperButtton>
-          <ButtonIcon
-            type="button"
-            text="cancel"
-            handleClick={onClickButtonBack}
-          >
-            <MdKeyboardArrowLeft color={color.fourth} size={25} />
-          </ButtonIcon>
+    <Form handleSubmit={handleSubmit} initialData={initialData}>
+      <FormHeader title={title} onClickButtonBack={onClickButtonBack} />
 
-          <ButtonIcon text="Save" type="submit">
-            <MdDone color={color.fourth} size={22} />
-          </ButtonIcon>
-        </C.WrapperButtton>
-      </C.Header>
-      <C.FormBody>
-        <label htmlFor="Name">Name</label>
-        <C.InputText
-          type="text"
-          name="name"
-          id="name"
-          placeholder="e.g John McGold"
-        />
+      <C.FormBodyGrid>
+        <label htmlFor="Name" id="name">
+          Name
+          <Input type="text" name="name" placeholder="e.g John McGold" />
+        </label>
+        <label htmlFor="street" id="street">
+          Street
+          <Input type="street" name="street" placeholder="e.g Liverpool" />
+        </label>
+        <label htmlFor="number" id="number">
+          Number
+          <Input type="text" name="number" placeholder="e.g Liverpool" />
+        </label>
 
-        <label htmlFor="street">street</label>
-        <C.InputText
-          type="street"
-          name="street"
-          id="street"
-          placeholder="e.g Liverpool"
-        />
+        <label htmlFor="address_complement" id="complement">
+          Complement
+          <Input
+            type="text"
+            name="address_complement"
+            placeholder="e.g Liverpool"
+          />
+        </label>
 
-        <label htmlFor="number">Number</label>
-        <C.InputText
-          type="number"
-          name="number"
-          id="number"
-          placeholder="e.g Liverpool"
-        />
+        <label htmlFor="city" id="city">
+          City
+          <Input type="text" name="city" placeholder="e.g Manchester" />
+        </label>
 
-        <label htmlFor="complement">Complement</label>
-        <C.InputText
-          type="text"
-          name="complement"
-          id="complement"
-          placeholder="e.g Liverpool"
-        />
+        <label htmlFor="state" id="state">
+          State
+          <Input type="text" name="state" placeholder="e.g Liverpool" />
+        </label>
 
-        <label htmlFor="city">city</label>
-        <C.InputText
-          type="text"
-          name="city"
-          id="city"
-          placeholder="e.g Manchester"
-        />
-        <label htmlFor="state">state</label>
-        <C.InputText
-          type="text"
-          name="state"
-          id="state"
-          placeholder="e.g Liverpool"
-        />
-        <label htmlFor="post_code">post_code</label>
-        <C.InputText
-          type="post_code"
-          name="post_code"
-          id="post_code"
-          placeholder="e.g 2020"
-        />
-      </C.FormBody>
-    </C.FormCustom>
+        <label htmlFor="post_code" id="post_code">
+          Post Code
+          <Input type="post_code" name="post_code" placeholder="e.g 2020" />
+        </label>
+      </C.FormBodyGrid>
+    </Form>
   );
 }
+
+FormRecipient.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  // schema: PropTypes.object,
+  initialData: PropTypes.object,
+  title: PropTypes.string.isRequired,
+  onClickButtonBack: PropTypes.func.isRequired,
+};
+
+FormRecipient.defaultProps = {
+  // initialData: {},
+  initialData: {},
+};

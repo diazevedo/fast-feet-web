@@ -62,10 +62,7 @@ export default function Parcel() {
                   goTo="/recipient/edit/"
                   state={{
                     recipient_id: recipient.id,
-                    recipient: {
-                      value: recipient.id,
-                      label: recipient.name,
-                    },
+                    recipient,
                   }}
                   data={recipient}
                 />
