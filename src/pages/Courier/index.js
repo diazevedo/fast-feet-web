@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -20,18 +20,22 @@ export default function Courier() {
     history.push('/');
   };
 
-  useEffect(() => {
-    const loadCouriers = async () => {
-      const response = await api.get('/admin/couriers');
+  const loadCouriers = useCallback(async (name = '') => {
+    const response = await api.get('/admin/couriers', {
+      params: { name },
+    });
 
-      setCouriers(response.data);
-    };
-
-    loadCouriers();
+    setCouriers(response.data);
   }, []);
+
+  useEffect(() => {
+    loadCouriers();
+  }, [loadCouriers]);
 
   const handleRegisterCourier = () =>
     history.push({ pathname: '/courier/create' });
+
+  const handleChange = (e) => loadCouriers(e.target.value);
 
   return (
     <C.Main>
@@ -40,6 +44,7 @@ export default function Courier() {
         placeholder="Couriers management"
         textButton="Register"
         handleButton={handleRegisterCourier}
+        handleChange={handleChange}
       />
 
       <T.Table>
@@ -47,7 +52,7 @@ export default function Courier() {
         <T.TBody>
           {couriers.map((courier) => (
             <T.TR>
-              <T.TD>{courier.id}</T.TD>
+              <T.TD>#{courier.id.toString().padStart(2, '0')}</T.TD>
               <T.TD>
                 <C.WrapperImageTd>
                   <T.TDImage

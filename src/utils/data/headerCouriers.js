@@ -18,6 +18,6 @@ export default [
   },
   {
     text: 'Actions',
-    showMobile: 1,
+    showMobile: 0,
   },
 ];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -15,28 +15,32 @@ export default function Parcel() {
   const [recipients, setRecipients] = useState([]);
 
   const handleDelete = async ({ id }) => {
-    await api.delete(`/recipients/${id}`);
-
-    history.push('/');
+    // TODO create update route to mark a recipient off
+    try {
+      await api.put(`/recipients/${id}`, {});
+      history.push('/recipient');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {
-    const loadRecipients = async () => {
-      const response = await api.get('/recipients');
-
-      const recipientsFormatted = response.data.map((recipient) => ({
-        ...recipient,
-        address: `${recipient.number}, ${recipient.street}, ${recipient.city} - ${recipient.state}`,
-      }));
-
-      setRecipients(recipientsFormatted);
-    };
-
-    loadRecipients();
+  const loadRecipients = useCallback(async (name = '') => {
+    const response = await api.get('/recipients', { params: { name } });
+    const recipientsFormatted = response.data.map((recipient) => ({
+      ...recipient,
+      address: `${recipient.number}, ${recipient.street}, ${recipient.city} - ${recipient.state}`,
+    }));
+    setRecipients(recipientsFormatted);
   }, []);
+
+  useEffect(() => {
+    loadRecipients();
+  }, [loadRecipients]);
 
   const handleRegisterRecipient = () =>
     history.push({ pathname: '/recipient/create' });
+
+  const handleChange = (e) => loadRecipients(e.target.value);
 
   return (
     <C.Main>
@@ -45,6 +49,7 @@ export default function Parcel() {
         placeholder="Recipient search"
         textButton="register"
         handleButton={handleRegisterRecipient}
+        handleChange={handleChange}
       />
 
       <T.Table>

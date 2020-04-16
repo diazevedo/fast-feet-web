@@ -3,39 +3,13 @@ import PropTypes from 'prop-types';
 
 import * as C from './styles';
 
-export default function Modal({ closeModal, parcel }) {
-  const { recipient = {} } = parcel;
-
+export default function Modal({ closeModal, children }) {
   return (
     <C.Wrapper>
       <button type="button" className="close" onClick={closeModal}>
         close
       </button>
-      <div className="content">
-        <h3>Parcel details</h3>
-        <p>{recipient.name || ''}</p>
-        <p>
-          {recipient.street || ''}, {recipient.number || 0}
-        </p>
-        <p>
-          {recipient.city} - {recipient.state}
-        </p>
-        <p>{recipient.post_code}</p>
-
-        <hr />
-
-        <h3>Data</h3>
-        <p>
-          <span>Retirada:</span> {parcel.started}
-        </p>
-        <p>
-          <span>Entrega:</span> {parcel.end}
-        </p>
-
-        <hr />
-        <h3>Assinatura</h3>
-        <img src="https://picsum.photos/400/50" alt="" srcSet="" />
-      </div>
+      <C.Content>{children}</C.Content>
     </C.Wrapper>
   );
 }

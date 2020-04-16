@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { format, parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,20 +36,24 @@ export default function Parcel() {
     setParcelSelected({});
   };
 
-  useEffect(() => {
-    const loadParcels = async () => {
-      const response = await api.get('/parcels');
+  const formatParcels = (parcelData) => {
+    return parcelData.map((parcel) => ({
+      ...parcel,
+      status: parcelStatus(parcel),
+    }));
+  };
 
-      const parcelsFormatted = response.data.map((parcel) => ({
-        ...parcel,
-        status: parcelStatus(parcel),
-      }));
-
-      setParcels(parcelsFormatted);
-    };
-
-    loadParcels();
+  const loadParcels = useCallback(async (productName = '') => {
+    const response = await api.get('/parcels', {
+      params: { product_name: productName },
+    });
+    const parcelsFormatted = formatParcels(response.data);
+    setParcels(parcelsFormatted);
   }, []);
+
+  useEffect(() => {
+    loadParcels();
+  }, [loadParcels]);
 
   const handleViewParcel = async (id) => {
     const response = await api.get(`/parcels/${id}`);
@@ -70,6 +74,10 @@ export default function Parcel() {
   const handleRegisterParcel = () =>
     history.push({ pathname: '/parcel/create' });
 
+  const handleChange = (e) => {
+    loadParcels(e.target.value);
+  };
+
   return (
     <C.Main>
       {modalOpened ? (
@@ -83,6 +91,7 @@ export default function Parcel() {
         placeholder="Parcels recipient"
         textButton="register"
         handleButton={handleRegisterParcel}
+        handleChange={handleChange}
       />
 
       <T.Table>
@@ -90,7 +99,7 @@ export default function Parcel() {
         <T.TBody>
           {parcels.map((parcel) => (
             <T.TR>
-              <T.TD>{parcel.id}</T.TD>
+              <T.TD>#{parcel.id.toString().padStart(2, '0')}</T.TD>
               <T.TD>{parcel.recipient.name}</T.TD>
               <T.TD>
                 <C.WrapperImageTd>

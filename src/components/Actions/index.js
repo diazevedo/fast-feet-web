@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
@@ -22,7 +23,9 @@ const Actions = ({
   handleView,
   goTo,
   state,
-  viewOption = false,
+  viewOption,
+  editOption,
+  cancellationText,
 }) => {
   const [visible, setVisibility] = useState(false);
   const dispatch = useDispatch();
@@ -50,18 +53,22 @@ const Actions = ({
         ) : (
           ''
         )}
+        {editOption ? (
+          <li>
+            <MdModeEdit color={color.delivered} size={16} />
+            <Link
+              to={{
+                pathname: goTo,
+                state,
+              }}
+            >
+              Edit
+            </Link>
+          </li>
+        ) : (
+          ''
+        )}
 
-        <li>
-          <MdModeEdit color={color.delivered} size={16} />
-          <Link
-            to={{
-              pathname: goTo,
-              state,
-            }}
-          >
-            Edit
-          </Link>
-        </li>
         <li>
           <MdDeleteForever color={color.alert} size={16} />
           <button
@@ -82,7 +89,7 @@ const Actions = ({
               })
             }
           >
-            Delete
+            {cancellationText}
           </button>
         </li>
       </ul>
@@ -94,9 +101,21 @@ Actions.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.number,
   }).isRequired,
+  state: PropTypes.object,
   handleDelete: PropTypes.func.isRequired,
   handleView: PropTypes.func,
   goTo: PropTypes.string.isRequired,
+  viewOption: PropTypes.bool,
+  editOption: PropTypes.bool,
+  cancellationText: PropTypes.string,
+};
+
+Actions.defaultProps = {
+  state: {},
+  editOption: false,
+  viewOption: false,
+  handleView: () => {},
+  cancellationText: 'Delete',
 };
 
 export default Actions;

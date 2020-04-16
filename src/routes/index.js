@@ -15,6 +15,8 @@ import Recipient from '~/pages/Recipient';
 import RecipientCreate from '~/pages/Recipient/RecipientCreate';
 import RecipientEdit from '~/pages/Recipient/RecipientEdit';
 
+import Issues from '~/pages/Issues';
+
 export default function Routes() {
   return (
     <Switch>
@@ -31,6 +33,8 @@ export default function Routes() {
       <Route path="/recipient/edit" component={RecipientEdit} isPrivate />
       <Route path="/recipient/create" component={RecipientCreate} isPrivate />
       <Route path="/recipient" component={Recipient} isPrivate />
+
+      <Route path="/issues" component={Issues} isPrivate />
 
       <Route path="/" component={() => <h1>not foun</h1>} />
     </Switch>
