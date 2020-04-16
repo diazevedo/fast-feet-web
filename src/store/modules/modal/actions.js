@@ -1,13 +1,11 @@
-export function showModal(id) {
+export function showModal() {
   return {
     type: '@modal/OPEN',
-    payload: { id },
   };
 }
 
-export function hideModal(id) {
+export function hideModal() {
   return {
     type: '@modal/CLOSE',
-    payload: { id },
   };
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -15,9 +16,13 @@ export default function Courier() {
   const [couriers, setCouriers] = useState([]);
 
   const handleDelete = async ({ id }) => {
-    await api.delete(`/admin/couriers/${id}`);
-
-    history.push('/');
+    try {
+      await api.delete(`/admin/couriers/${id}`);
+      toast.success('The courier has been updated.');
+      history.push('/courier');
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
   };
 
   const loadCouriers = useCallback(async (name = '') => {
@@ -77,6 +82,8 @@ export default function Courier() {
                     email: courier.email,
                     avatar: courier.avatar,
                   }}
+                  editOption
+                  data={courier}
                 />
               </T.TD>
             </T.TR>

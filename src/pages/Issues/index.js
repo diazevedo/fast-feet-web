@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import api from '~/services/api';
 import history from '~/services/history';
-import { hideModal } from '~/store/modules/modal/actions';
+import { hideModal, showModal } from '~/store/modules/modal/actions';
 
 import PageTitle from '~/components/PageTitle';
 import * as T from '~/components/TableComponents';
@@ -48,6 +47,7 @@ export default function Parcel() {
       const response = await api.get(`/parcels/problems/${id}`);
 
       setIssueSelected(response.data);
+      dispatch(showModal());
     } catch (error) {
       console.log(error);
     }
@@ -69,9 +69,7 @@ export default function Parcel() {
         <T.TBody>
           {issues.map((issue) => (
             <T.TR>
-              <T.TD>
-                #{issue.parcel.recipient.id.toString().padStart(2, '0')}
-              </T.TD>
+              <T.TD>#{issue.parcel.id.toString().padStart(2, '0')}</T.TD>
               <T.TD>
                 <C.P>{issue.description}</C.P>
               </T.TD>

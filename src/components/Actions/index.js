@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -12,7 +11,6 @@ import {
   MdDeleteForever,
 } from 'react-icons/md';
 
-import { showModal } from '~/store/modules/modal/actions';
 import { Container } from './styles';
 import color from '~/styles/colors';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -28,12 +26,8 @@ const Actions = ({
   cancellationText,
 }) => {
   const [visible, setVisibility] = useState(false);
-  const dispatch = useDispatch();
 
-  const handleClickView = ({ id }) => {
-    dispatch(showModal(id));
-    handleView(id);
-  };
+  const handleClickView = ({ id }) => handleView(id);
 
   return (
     <Container visible={visible === true ? 1 : 0}>

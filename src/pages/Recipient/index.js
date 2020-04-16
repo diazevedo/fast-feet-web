@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-
+import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
@@ -13,16 +13,6 @@ import header from '~/utils/data/headerRecipients';
 
 export default function Parcel() {
   const [recipients, setRecipients] = useState([]);
-
-  const handleDelete = async ({ id }) => {
-    // TODO create update route to mark a recipient off
-    try {
-      await api.put(`/recipients/${id}`, {});
-      history.push('/recipient');
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const loadRecipients = useCallback(async (name = '') => {
     const response = await api.get('/recipients', { params: { name } });
@@ -42,6 +32,15 @@ export default function Parcel() {
 
   const handleChange = (e) => loadRecipients(e.target.value);
 
+  const handleDelete = async ({ id }) => {
+    try {
+      await api.delete(`/recipients/${id}`);
+      toast.success('The recipient has been deleted.');
+      loadRecipients();
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
+  };
   return (
     <C.Main>
       <HeaderMainPage

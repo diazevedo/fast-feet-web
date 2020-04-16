@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
@@ -11,7 +12,7 @@ import * as C from './styles';
 const RecipientCreate = () => {
   const history = useHistory();
 
-  const onClickButtonBack = () => history.push({ pathname: '/courier' });
+  const onClickButtonBack = () => history.push({ pathname: '/recipient' });
 
   const handleSubmitForm = async (data) => {
     try {
@@ -24,8 +25,9 @@ const RecipientCreate = () => {
         state: data.state,
         post_code: data.post_code,
       });
+      toast.success('Recipient has been created.');
     } catch (error) {
-      throw new Error(error);
+      toast.error('Something went wrong.');
     }
   };
 

@@ -36,7 +36,8 @@ const ParcelDetails = ({
       </p>
 
       <hr />
-      <h3>Signment</h3>
+
+      <h3>Signature</h3>
       <img src={src} alt="" srcSet="" />
     </Container>
   );

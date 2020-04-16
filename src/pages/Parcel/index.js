@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { format, parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
 import { parcelStatus } from '~/utils/functions/parcel';
-import { hideModal } from '~/store/modules/modal/actions';
+import { hideModal, showModal } from '~/store/modules/modal/actions';
 
 import HeaderMainPage from '~/components/HeaderMainPage';
 import * as T from '~/components/TableComponents';
 import Modal from '~/components/Modal';
 import Status from '~/components/Status';
 import Actions from '~/components/Actions';
+import ParcelDetails from '~/components/ParcelDetails';
 
 import * as C from './styles';
 import header from '~/utils/data/headerParcels';
@@ -26,9 +28,13 @@ export default function Parcel() {
   const modalOpened = useSelector((state) => state.modal.opened);
 
   const handleDelete = async ({ id }) => {
-    await api.delete(`/parcels/${id}`);
-
-    history.push('/');
+    try {
+      await api.delete(`/parcels/${id}`);
+      toast.success('The parcel has been deleted.');
+      history.push('/');
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
   };
 
   const closeModal = () => {
@@ -39,6 +45,7 @@ export default function Parcel() {
   const formatParcels = (parcelData) => {
     return parcelData.map((parcel) => ({
       ...parcel,
+      recipient: parcel.recipient ? parcel.recipient : {},
       status: parcelStatus(parcel),
     }));
   };
@@ -48,6 +55,7 @@ export default function Parcel() {
       params: { product_name: productName },
     });
     const parcelsFormatted = formatParcels(response.data);
+
     setParcels(parcelsFormatted);
   }, []);
 
@@ -69,6 +77,7 @@ export default function Parcel() {
     };
 
     setParcelSelected(parcelFormatted);
+    dispatch(showModal(id));
   };
 
   const handleRegisterParcel = () =>
@@ -81,7 +90,20 @@ export default function Parcel() {
   return (
     <C.Main>
       {modalOpened ? (
-        <Modal closeModal={closeModal} parcel={parcelSelected} />
+        <Modal closeModal={closeModal}>
+          <ParcelDetails
+            name={parcelSelected.recipient.name}
+            street={parcelSelected.recipient.street}
+            number={parcelSelected.recipient.number}
+            city={parcelSelected.recipient.city}
+            state={parcelSelected.recipient.state}
+            post_code={parcelSelected.recipient.post_code}
+            start={parcelSelected.started}
+            end={parcelSelected.end}
+            // src={(parcelSelected.sign.avatar && parcel.courier.avatar.url) ||
+            // 'https://api.adorable.io/avatars/50/abott@adorable.png'},
+          />
+        </Modal>
       ) : (
         ''
       )}
@@ -100,7 +122,7 @@ export default function Parcel() {
           {parcels.map((parcel) => (
             <T.TR>
               <T.TD>#{parcel.id.toString().padStart(2, '0')}</T.TD>
-              <T.TD>{parcel.recipient.name}</T.TD>
+              <T.TD>{parcel.recipient.name || 'N/A'}</T.TD>
               <T.TD>
                 <C.WrapperImageTd>
                   <T.TDImage
@@ -112,14 +134,15 @@ export default function Parcel() {
                   <span>{parcel.courier.name}</span>
                 </C.WrapperImageTd>
               </T.TD>
-              <T.TD showMobile={0}>{parcel.recipient.city}</T.TD>
-              <T.TD showMobile={0}>{parcel.recipient.state}</T.TD>
+              <T.TD showMobile={0}>{parcel.recipient.city || 'N/A'}</T.TD>
+              <T.TD showMobile={0}>{parcel.recipient.state || 'N/A'}</T.TD>
               <T.TD>
                 <Status status={parcel.status}>{parcel.status}</Status>
               </T.TD>
               <T.TD>
                 <Actions
                   viewOption
+                  editOption
                   handleDelete={handleDelete}
                   handleView={handleViewParcel}
                   goTo="/parcel/edit/"
