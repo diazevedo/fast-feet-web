@@ -34,7 +34,8 @@ export default function Parcel() {
 
   const handleDelete = async ({ id }) => {
     try {
-      await api.delete(`/recipients/${id}`);
+      await api.put(`/recipients/${id}/cancel`);
+
       toast.success('The recipient has been deleted.');
       loadRecipients();
     } catch (error) {

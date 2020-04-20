@@ -34,9 +34,12 @@ export default function Parcel() {
 
   useEffect(() => {
     const loadIssues = async () => {
-      const response = await api.get('/parcels/problems');
-
-      setIssues(response.data);
+      try {
+        const response = await api.get('/parcels/problems');
+        setIssues(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     loadIssues();
@@ -45,7 +48,6 @@ export default function Parcel() {
   const handleViewProblem = async (id) => {
     try {
       const response = await api.get(`/parcels/problems/${id}`);
-
       setIssueSelected(response.data);
       dispatch(showModal());
     } catch (error) {

@@ -51,12 +51,15 @@ export default function Parcel() {
   };
 
   const loadParcels = useCallback(async (productName = '') => {
-    const response = await api.get('/parcels', {
-      params: { product_name: productName },
-    });
-    const parcelsFormatted = formatParcels(response.data);
-
-    setParcels(parcelsFormatted);
+    try {
+      const response = await api.get('/parcels', {
+        params: { product_name: productName },
+      });
+      const parcelsFormatted = formatParcels(response.data);
+      setParcels(parcelsFormatted);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -100,8 +103,11 @@ export default function Parcel() {
             post_code={parcelSelected.recipient.post_code}
             start={parcelSelected.started}
             end={parcelSelected.end}
-            // src={(parcelSelected.sign.avatar && parcel.courier.avatar.url) ||
-            // 'https://api.adorable.io/avatars/50/abott@adorable.png'},
+            src={
+              parcelSelected.signature && parcelSelected.signature.url
+                ? parcelSelected.signature.url
+                : 'https://api.adorable.io/avatars/50/abott@adorable.png'
+            }
           />
         </Modal>
       ) : (

@@ -35,8 +35,6 @@ export default function Routes() {
       <Route path="/recipient" component={Recipient} isPrivate />
 
       <Route path="/issues" component={Issues} isPrivate />
-
-      <Route path="/" component={() => <h1>not foun</h1>} />
     </Switch>
   );
 }
