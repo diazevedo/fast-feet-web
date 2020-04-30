@@ -1,69 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from './styles';
+import * as C from './styles';
 
-const ParcelDetails = ({
-  name,
-  street,
-  number,
-  city,
-  state,
-  post_code,
-  start,
-  end,
-  src,
-}) => {
+const ParcelDetails = ({ parcel, src }) => {
+  const { recipient } = parcel;
+
   return (
-    <Container>
-      <h3>Parcel details</h3>
-      <p>{name}</p>
-      <p>
-        {street}, {number}
-      </p>
-      <p>
-        {city} - {state}
-      </p>
-      <p>{post_code}</p>
+    <C.Container>
+      <C.ModalTitle>Parcel details</C.ModalTitle>
+      <C.Text>{recipient.name}</C.Text>
+      <C.Text>
+        {recipient.street}, {recipient.number}
+      </C.Text>
+      <C.Text>
+        {recipient.city} - {recipient.state}
+      </C.Text>
+      <C.Text>{recipient.post_code}</C.Text>
 
       <hr />
 
-      <h3>Data</h3>
-      <p>
-        <span>Retirada:</span> {start}
-      </p>
-      <p>
-        <span>Entrega:</span> {end}
-      </p>
+      <C.ModalTitle>Date</C.ModalTitle>
+      <C.Text>
+        <C.Span>Picked up:</C.Span> {parcel.started}
+      </C.Text>
+      <C.Text>
+        <C.Span>Delivered:</C.Span> {parcel.end}
+      </C.Text>
 
       <hr />
 
-      <h3>Signature</h3>
-      <img src={src} alt="" srcSet="" />
-    </Container>
+      <C.ModalTitle>Signature</C.ModalTitle>
+      <C.Image src={src} alt="" srcSet="" />
+    </C.Container>
   );
 };
 
 ParcelDetails.propTypes = {
-  name: PropTypes.string,
-  street: PropTypes.string,
-  number: PropTypes.string,
-  city: PropTypes.string,
-  state: PropTypes.string,
-  post_code: PropTypes.string,
-  start: PropTypes.string,
-  end: PropTypes.string,
+  parcel: PropTypes.shape({
+    recipient: PropTypes.shape({
+      name: PropTypes.string,
+      street: PropTypes.string,
+      number: PropTypes.string,
+      city: PropTypes.string,
+      state: PropTypes.string,
+      post_code: PropTypes.string,
+    }),
+
+    started: PropTypes.string,
+    end: PropTypes.string,
+  }),
   src: PropTypes.string,
 };
 
 ParcelDetails.defaultProps = {
-  name: '',
-  street: '',
-  number: '',
-  city: '',
-  state: '',
-  post_code: '',
-  start: '',
-  end: '',
+  parcel: PropTypes.shape({
+    recipient: PropTypes.shape({
+      name: '',
+      street: '',
+      number: '',
+      city: '',
+      state: '',
+      post_code: '',
+    }),
+
+    started: '',
+    end: '',
+  }),
   src: 'https://picsum.photos/400/50',
 };
 

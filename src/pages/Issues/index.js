@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import api from '~/services/api';
 import history from '~/services/history';
-import { hideModal, showModal } from '~/store/modules/modal/actions';
 
 import PageTitle from '~/components/PageTitle';
 import * as T from '~/components/TableComponents';
@@ -17,18 +15,15 @@ import header from '~/utils/data/headerIssues';
 export default function Parcel() {
   const [issues, setIssues] = useState([]);
   const [issueSelected, setIssueSelected] = useState({});
-
-  const dispatch = useDispatch();
-  const modalOpened = useSelector((state) => state.modal.opened);
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async ({ id }) => {
     await api.delete(`/parcels/problems/${id}`);
-
     history.push('/issues');
   };
 
   const closeModal = () => {
-    dispatch(hideModal());
+    setShowModal(false);
     setIssueSelected({});
   };
 
@@ -47,9 +42,10 @@ export default function Parcel() {
 
   const handleViewProblem = async (id) => {
     try {
-      const response = await api.get(`/parcels/problems/${id}`);
+      const response = await api.get(`/problems/${id}`);
+
       setIssueSelected(response.data);
-      dispatch(showModal());
+      setShowModal(true);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +53,7 @@ export default function Parcel() {
 
   return (
     <C.Main>
-      {modalOpened ? (
+      {showModal ? (
         <Modal closeModal={closeModal}>
           <IssuesDetails text={issueSelected.description} />
         </Modal>

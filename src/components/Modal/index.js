@@ -1,44 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import * as C from './styles';
 
-export default function Modal({ closeModal, children }) {
-  return (
+const modalRoot = document.getElementById('modal');
+
+const Modal = ({ children, closeModal }) => {
+  const elementRef = useRef(null);
+
+  if (!elementRef.current) {
+    elementRef.current = document.createElement('div');
+  }
+
+  useEffect(() => {
+    modalRoot.appendChild(elementRef.current);
+    return () => modalRoot.removeChild(elementRef.current);
+  }, []);
+
+  return createPortal(
     <C.Wrapper>
-      <button type="button" className="close" onClick={closeModal}>
+      <button type="button" onClick={closeModal}>
         close
       </button>
       <C.Content>{children}</C.Content>
-    </C.Wrapper>
+    </C.Wrapper>,
+    elementRef.current
   );
-}
-
-Modal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  parcel: PropTypes.shape({
-    end: PropTypes.string,
-    started: PropTypes.string,
-    name: PropTypes.string,
-    recipient: PropTypes.shape({
-      name: PropTypes.string,
-      city: PropTypes.string,
-      state: PropTypes.string,
-      post_code: PropTypes.number,
-    }),
-  }),
 };
 
-Modal.defaultProps = {
-  parcel: PropTypes.shape({
-    end: 'To be delivered',
-    started: 'Wait to be picked up',
-    name: PropTypes.string,
-    recipient: PropTypes.shape({
-      name: PropTypes.string,
-      city: PropTypes.string,
-      state: PropTypes.string,
-      post_code: PropTypes.number,
-    }),
-  }),
-};
+export default Modal;

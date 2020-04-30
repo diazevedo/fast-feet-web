@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import * as C from 'styles';
+import * as C from './styles';
 
 const IssueDetails = ({ text }) => {
   return (
     <>
-      <h2>See problem</h2>
-      <p>{text}</p>
+      <C.ModalTitle>See problem</C.ModalTitle>
+      <C.Text>{text}</C.Text>
     </>
   );
 };

@@ -1,18 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { format, parseISO } from 'date-fns';
-import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
 import { parcelStatus } from '~/utils/functions/parcel';
 import userInitials from '~/utils/functions/userInitials';
-import { hideModal, showModal } from '~/store/modules/modal/actions';
 
 import HeaderMainPage from '~/components/HeaderMainPage';
 import * as T from '~/components/TableComponents';
-import Modal from '~/components/Modal';
 import Status from '~/components/Status';
+import Modal from '~/components/Modal';
 import Actions from '~/components/Actions';
 import ParcelDetails from '~/components/ParcelDetails';
 import Avatar from '~/components/Avatar';
@@ -26,9 +24,7 @@ const formatDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
 export default function Parcel() {
   const [parcels, setParcels] = useState([]);
   const [parcelSelected, setParcelSelected] = useState({});
-
-  const dispatch = useDispatch();
-  const modalOpened = useSelector((state) => state.modal.opened);
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async ({ id }) => {
     try {
@@ -41,7 +37,7 @@ export default function Parcel() {
   };
 
   const closeModal = () => {
-    dispatch(hideModal());
+    setShowModal(false);
     setParcelSelected({});
   };
 
@@ -83,7 +79,7 @@ export default function Parcel() {
     };
 
     setParcelSelected(parcelFormatted);
-    dispatch(showModal(id));
+    setShowModal(true);
   };
 
   const handleRegisterParcel = () =>
@@ -95,17 +91,11 @@ export default function Parcel() {
 
   return (
     <C.Main>
-      {modalOpened ? (
+      {showModal ? (
         <Modal closeModal={closeModal}>
           <ParcelDetails
-            name={parcelSelected.recipient.name}
-            street={parcelSelected.recipient.street}
-            number={parcelSelected.recipient.number}
-            city={parcelSelected.recipient.city}
-            state={parcelSelected.recipient.state}
-            post_code={parcelSelected.recipient.post_code}
-            start={parcelSelected.started}
-            end={parcelSelected.end}
+            parcel={parcelSelected}
+            recipient={parcelSelected.recipient}
             src={
               parcelSelected.signature && parcelSelected.signature.url
                 ? parcelSelected.signature.url

@@ -30,23 +30,4 @@ export const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 4px;
-
-  h3 {
-    font-size: 14px;
-    color: #444444;
-    font-weight: 700;
-    line-height: 16px;
-    margin-bottom: 5px;
-  }
-
-  p {
-    font-size: 16px;
-    color: #666666;
-    font-weight: 300;
-    line-height: 27px;
-
-    span {
-      font-weight: 700;
-    }
-  }
 `;
