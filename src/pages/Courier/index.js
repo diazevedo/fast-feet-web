@@ -3,9 +3,12 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
+import userInitials from '~/utils/functions/userInitials';
 
 import HeaderMainPage from '~/components/HeaderMainPage';
 import Actions from '~/components/Actions';
+import AvatarNoPhoto from '~/components/AvatarNoPhoto';
+import Avatar from '~/components/Avatar';
 
 import * as T from '~/components/TableComponents';
 import * as C from './styles';
@@ -58,15 +61,15 @@ export default function Courier() {
           {couriers.map((courier) => (
             <T.TR>
               <T.TD>#{courier.id.toString().padStart(2, '0')}</T.TD>
-              <T.TD>
-                <C.WrapperImageTd>
-                  <T.TDImage
-                    src={
-                      (courier.avatar && courier.avatar.url) ||
-                      'https://api.adorable.io/avatars/50/abott@adorable.png'
-                    }
+              <T.TD showMobile={0}>
+                {courier.avatar && courier.avatar.url ? (
+                  <Avatar
+                    src={courier.avatar.url}
+                    alt={`${courier.name}'s photo`}
                   />
-                </C.WrapperImageTd>
+                ) : (
+                  <AvatarNoPhoto name={userInitials(courier.name)} />
+                )}
               </T.TD>
               <T.TD>{courier.name}</T.TD>
               <T.TD showMobile={0}>{courier.email}</T.TD>

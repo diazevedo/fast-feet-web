@@ -39,15 +39,9 @@ export const WrapperButtons = styled.div`
 
 export const WrapperImageTd = styled.div`
   display: flex;
-  position: relative;
-  align-items: baseline;
+  align-items: center;
+`;
 
-  span {
-    margin-left: 5px;
-
-    @media (min-width: 700px) {
-      display: initial;
-      margin-left: 40px;
-    }
-  }
+export const CourierName = styled.span`
+  margin-left: 5px;
 `;

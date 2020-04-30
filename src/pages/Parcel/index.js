@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 import { parcelStatus } from '~/utils/functions/parcel';
+import userInitials from '~/utils/functions/userInitials';
 import { hideModal, showModal } from '~/store/modules/modal/actions';
 
 import HeaderMainPage from '~/components/HeaderMainPage';
@@ -14,6 +15,8 @@ import Modal from '~/components/Modal';
 import Status from '~/components/Status';
 import Actions from '~/components/Actions';
 import ParcelDetails from '~/components/ParcelDetails';
+import Avatar from '~/components/Avatar';
+import AvatarNoPhoto from '~/components/AvatarNoPhoto';
 
 import * as C from './styles';
 import header from '~/utils/data/headerParcels';
@@ -110,9 +113,7 @@ export default function Parcel() {
             }
           />
         </Modal>
-      ) : (
-        ''
-      )}
+      ) : null}
 
       <HeaderMainPage
         title="Parcels management"
@@ -131,13 +132,15 @@ export default function Parcel() {
               <T.TD>{parcel.recipient.name || 'N/A'}</T.TD>
               <T.TD>
                 <C.WrapperImageTd>
-                  <T.TDImage
-                    src={
-                      (parcel.courier.avatar && parcel.courier.avatar.url) ||
-                      'https://api.adorable.io/avatars/50/abott@adorable.png'
-                    }
-                  />
-                  <span>{parcel.courier.name}</span>
+                  {parcel.courier.avatar && parcel.courier.avatar.url ? (
+                    <Avatar
+                      src={parcel.courier.avatar.url}
+                      alt={`${parcel.courier.name}'s photo`}
+                    />
+                  ) : (
+                    <AvatarNoPhoto name={userInitials(parcel.courier.name)} />
+                  )}
+                  <C.CourierName>{parcel.courier.name}</C.CourierName>
                 </C.WrapperImageTd>
               </T.TD>
               <T.TD showMobile={0}>{parcel.recipient.city || 'N/A'}</T.TD>

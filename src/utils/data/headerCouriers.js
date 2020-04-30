@@ -5,7 +5,7 @@ export default [
   },
   {
     text: 'Photo',
-    showMobile: 1,
+    showMobile: 0,
   },
   {
     text: 'Name',

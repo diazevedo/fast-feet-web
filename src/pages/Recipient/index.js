@@ -16,10 +16,12 @@ export default function Parcel() {
 
   const loadRecipients = useCallback(async (name = '') => {
     const response = await api.get('/recipients', { params: { name } });
+
     const recipientsFormatted = response.data.map((recipient) => ({
       ...recipient,
       address: `${recipient.number}, ${recipient.street}, ${recipient.city} - ${recipient.state}`,
     }));
+
     setRecipients(recipientsFormatted);
   }, []);
 
