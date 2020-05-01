@@ -12,7 +12,6 @@ import AvatarNoPhoto from '~/components/AvatarNoPhoto';
 import Avatar from '~/components/Avatar';
 
 import * as T from '~/components/TableComponents';
-import * as C from './styles';
 
 import header from '~/utils/data/headerCouriers';
 
