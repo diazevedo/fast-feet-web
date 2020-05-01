@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
   width: 100%;
-  /* height: min-content; */
 `;
 
 export const WrapperButtons = styled.div`

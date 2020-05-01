@@ -4,22 +4,19 @@ import color from '~/styles/colors';
 
 export const Header = styled.header`
   width: 100%;
-  max-width: 1440px;
   padding: 10px 32px;
   background: ${color.fourth};
 
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 0 auto;
   text-align: center;
 
-  @media (min-width: 700px) {
+  @media (min-width: 760px) {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 `;
 

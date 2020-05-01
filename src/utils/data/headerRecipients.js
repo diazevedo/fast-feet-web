@@ -9,7 +9,7 @@ export default [
   },
   {
     text: 'Address',
-    showMobile: 1,
+    showMobile: 0,
   },
   {
     text: 'Actions',

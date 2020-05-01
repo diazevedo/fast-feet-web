@@ -16,7 +16,6 @@ export const TD = styled.td`
   text-transform: capitalize;
 
   &:last-child {
-    text-align: right;
-    padding-right: 25px;
+    width: 30px;
   }
 `;

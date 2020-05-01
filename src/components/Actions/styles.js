@@ -1,66 +1,66 @@
 import styled from 'styled-components';
 
+import color from '~/styles/colors';
+
 export const Container = styled.div`
   position: relative;
-
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+`;
 
-  ul {
-    width: 150px;
-    font-size: 16px;
+export const OptionList = styled.ul`
+  width: 170px;
+  font-size: 16px;
+
+  position: absolute;
+  top: 25px;
+  display: ${(props) => (props.visible === 1 ? 'block' : 'none')};
+
+  padding: 10px;
+  z-index: 2;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+
+  background: ${color.fourth};
+  border-radius: 4px;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    border-style: solid;
+    border-width: 0 7px 7px 7px;
+    border-color: transparent;
     position: absolute;
-    top: 25px;
-    right: 39px;
-    transform: translateX(68%);
-    display: ${(props) => (props.visible === 1 ? 'block' : 'none')};
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    padding: 10px;
-    z-index: 2;
-    border: 0.5px solid rgba(0, 0, 0, 0.1);
+  &::before {
+    top: -7px;
+    border-bottom-color: rgba(0, 0, 0, 0.5);
+  }
 
-    background: #fff;
-    border-radius: 4px;
+  &::after {
+    top: -7px;
+    border-bottom-color: ${color.fourth};
+  }
+`;
 
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      border-style: solid;
-      border-width: 0 7px 7px 7px;
-      border-color: transparent;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+export const ListItem = styled.li`
+  height: 34px;
+  display: flex;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+  align-items: center;
 
-    &::before {
-      top: -7px;
-      border-bottom-color: rgba(0, 0, 0, 0.5);
-    }
+  &:last-child {
+    border: none;
+  }
 
-    &::after {
-      top: -7px;
-      border-bottom-color: #fff;
-    }
-
-    li {
-      height: 34px;
-      display: flex;
-      border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
-      align-items: center;
-
-      &:last-child {
-        border: none;
-      }
-
-      > a,
-      button {
-        color: #999999;
-        margin-left: 10px;
-        font-size: 16px;
-      }
-    }
+  > a,
+  button {
+    color: ${color.second};
+    margin-left: 0.75rem;
+    font-size: 1rem;
   }
 `;

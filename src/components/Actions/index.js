@@ -11,7 +11,7 @@ import {
   MdDeleteForever,
 } from 'react-icons/md';
 
-import { Container } from './styles';
+import * as C from './styles';
 import color from '~/styles/colors';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -30,25 +30,23 @@ const Actions = ({
   const handleClickView = ({ id }) => handleView(id);
 
   return (
-    <Container visible={visible === true ? 1 : 0}>
+    <C.Container>
       <MdMoreHoriz
         color={color.second}
         size={24}
         onClick={() => setVisibility(!visible)}
       />
-      <ul>
+      <C.OptionList visible={visible === true ? 1 : 0}>
         {viewOption ? (
-          <li>
+          <C.ListItem>
             <MdVisibility color={color.primary} size={16} />
             <button type="button" onClick={() => handleClickView(data)}>
               View
             </button>
-          </li>
-        ) : (
-          ''
-        )}
+          </C.ListItem>
+        ) : null}
         {editOption ? (
-          <li>
+          <C.ListItem>
             <MdModeEdit color={color.delivered} size={16} />
             <Link
               to={{
@@ -58,12 +56,10 @@ const Actions = ({
             >
               Edit
             </Link>
-          </li>
-        ) : (
-          ''
-        )}
+          </C.ListItem>
+        ) : null}
 
-        <li>
+        <C.ListItem>
           <MdDeleteForever color={color.alert} size={16} />
           <button
             type="button"
@@ -85,9 +81,9 @@ const Actions = ({
           >
             {cancellationText}
           </button>
-        </li>
-      </ul>
-    </Container>
+        </C.ListItem>
+      </C.OptionList>
+    </C.Container>
   );
 };
 

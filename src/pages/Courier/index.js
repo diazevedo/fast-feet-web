@@ -15,7 +15,8 @@ import * as C from './styles';
 
 import header from '~/utils/data/headerCouriers';
 
-export default function Courier() {
+export default function Courier({ match }) {
+  console.log(match);
   const [couriers, setCouriers] = useState([]);
 
   const handleDelete = async ({ id }) => {
@@ -41,7 +42,7 @@ export default function Courier() {
   }, [loadCouriers]);
 
   const handleRegisterCourier = () =>
-    history.push({ pathname: '/courier/create' });
+    history.push({ pathname: `${match.url}/create` });
 
   const handleChange = (e) => loadCouriers(e.target.value);
 
@@ -78,7 +79,7 @@ export default function Courier() {
                 <Actions
                   handleDelete={handleDelete}
                   handleView={{}}
-                  goTo="/courier/edit/"
+                  goTo={`${match.url}/edit`}
                   state={{
                     courier_id: courier.id,
                     name: courier.name,
