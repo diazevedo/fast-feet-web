@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import FormCourier from '~/components/FormCourier';
-import * as C from './styles';
+import Main from '~/components/Main';
 
 import api from '~/services/api';
 
@@ -31,14 +31,14 @@ const CourierCreate = () => {
   };
 
   return (
-    <C.Main>
+    <Main>
       <FormCourier
         handleSubmit={handleSubmitForm}
         title="Courier Edit"
         initialData={location.state}
         onClickButtonBack={onClickButtonBack}
       />
-    </C.Main>
+    </Main>
   );
 };
 

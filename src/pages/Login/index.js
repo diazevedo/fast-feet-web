@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 import schema from './schema';
+import Main from '~/components/Main';
 
 import logo from '~/assets/images/logo.png';
 
@@ -19,7 +20,7 @@ export default function Login() {
   };
 
   return (
-    <C.Main>
+    <Main>
       <C.Img src={logo} alt="Fast Feet logo" />
 
       <Form onSubmit={handleSubmitForm} schema={schema}>
@@ -42,6 +43,6 @@ export default function Login() {
 
         <C.Button type="submit"> {loading ? 'loading' : 'login'}</C.Button>
       </Form>
-    </C.Main>
+    </Main>
   );
 }

@@ -4,6 +4,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import PageTitle from '~/components/PageTitle';
+import Main from '~/components/Main';
 import * as T from '~/components/TableComponents';
 import Modal from '~/components/Modal';
 import Actions from '~/components/Actions';
@@ -52,7 +53,7 @@ export default function Parcel() {
   };
 
   return (
-    <C.Main>
+    <Main>
       {showModal ? (
         <Modal closeModal={closeModal}>
           <IssuesDetails text={issueSelected.description} />
@@ -85,6 +86,6 @@ export default function Parcel() {
           ))}
         </T.TBody>
       </T.Table>
-    </C.Main>
+    </Main>
   );
 }

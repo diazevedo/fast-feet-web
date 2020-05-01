@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import FormParcel from '~/components/FormParcel';
-import * as C from './styles';
+import Main from '~/components/Main';
 
 import api from '~/services/api';
 import * as loadOptions from '~/utils/functions/parcel';
@@ -29,7 +29,7 @@ const ParcelEdit = () => {
   };
 
   return (
-    <C.Main>
+    <Main>
       <FormParcel
         handleSubmit={handleSubmitForm}
         title="Create Parcel"
@@ -37,7 +37,7 @@ const ParcelEdit = () => {
         loadRecipients={loadOptions.loadRecipients}
         loadCouriers={loadOptions.loadCouriers}
       />
-    </C.Main>
+    </Main>
   );
 };
 

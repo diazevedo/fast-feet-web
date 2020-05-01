@@ -7,7 +7,7 @@ import api from '~/services/api';
 import * as loadOptions from '~/utils/functions/parcel';
 
 import FormParcel from '~/components/FormParcel';
-import * as C from './styles';
+import Main from '~/components/Main';
 
 const ParcelEdit = () => {
   const location = useLocation();
@@ -32,7 +32,7 @@ const ParcelEdit = () => {
   };
 
   return (
-    <C.Main>
+    <Main>
       <FormParcel
         handleSubmit={handleSubmitForm}
         initialData={location.state}
@@ -41,7 +41,7 @@ const ParcelEdit = () => {
         loadRecipients={loadOptions.loadRecipients}
         loadCouriers={loadOptions.loadCouriers}
       />
-    </C.Main>
+    </Main>
   );
 };
 

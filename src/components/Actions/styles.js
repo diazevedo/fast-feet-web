@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const OptionList = styled.ul`
-  width: 170px;
+  width: 160px;
   font-size: 16px;
 
   position: absolute;

@@ -5,6 +5,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 import userInitials from '~/utils/functions/userInitials';
 
+import Main from '~/components/Main';
 import HeaderMainPage from '~/components/HeaderMainPage';
 import Actions from '~/components/Actions';
 import AvatarNoPhoto from '~/components/AvatarNoPhoto';
@@ -47,7 +48,7 @@ export default function Courier({ match }) {
   const handleChange = (e) => loadCouriers(e.target.value);
 
   return (
-    <C.Main>
+    <Main>
       <HeaderMainPage
         title="Couriers Management"
         placeholder="Couriers management"
@@ -94,6 +95,6 @@ export default function Courier({ match }) {
           ))}
         </T.TBody>
       </T.Table>
-    </C.Main>
+    </Main>
   );
 }

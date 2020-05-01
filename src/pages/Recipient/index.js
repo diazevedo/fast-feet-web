@@ -7,8 +7,8 @@ import HeaderMainPage from '~/components/HeaderMainPage';
 import * as T from '~/components/TableComponents';
 
 import Actions from '~/components/Actions';
+import Main from '~/components/Main';
 
-import * as C from './styles';
 import header from '~/utils/data/headerRecipients';
 
 export default function Parcel() {
@@ -45,7 +45,7 @@ export default function Parcel() {
     }
   };
   return (
-    <C.Main>
+    <Main>
       <HeaderMainPage
         title="Recipients management"
         placeholder="Recipient search"
@@ -78,6 +78,6 @@ export default function Parcel() {
           ))}
         </T.TBody>
       </T.Table>
-    </C.Main>
+    </Main>
   );
 }

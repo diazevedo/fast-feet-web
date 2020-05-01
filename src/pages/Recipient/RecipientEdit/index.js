@@ -4,9 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import api from '~/services/api';
 
+import Main from '~/components/Main';
 import FormRecipient from '~/components/FormRecipient';
-
-import * as C from './styles';
 
 const RecipientCreate = () => {
   const history = useHistory();
@@ -31,14 +30,14 @@ const RecipientCreate = () => {
   };
 
   return (
-    <C.Main>
+    <Main>
       <FormRecipient
         handleSubmit={handleSubmitForm}
         title="Edit recipient"
         initialData={history.location.state.recipient}
         onClickButtonBack={onClickButtonBack}
       />
-    </C.Main>
+    </Main>
   );
 };
 

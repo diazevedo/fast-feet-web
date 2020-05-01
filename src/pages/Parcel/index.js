@@ -7,6 +7,7 @@ import history from '~/services/history';
 import { parcelStatus } from '~/utils/functions/parcel';
 import userInitials from '~/utils/functions/userInitials';
 
+import Main from '~/components/Main';
 import HeaderMainPage from '~/components/HeaderMainPage';
 import * as T from '~/components/TableComponents';
 import Status from '~/components/Status';
@@ -90,7 +91,7 @@ export default function Parcel() {
   };
 
   return (
-    <C.Main>
+    <Main>
       {showModal ? (
         <Modal closeModal={closeModal}>
           <ParcelDetails
@@ -164,6 +165,6 @@ export default function Parcel() {
           ))}
         </T.TBody>
       </T.Table>
-    </C.Main>
+    </Main>
   );
 }

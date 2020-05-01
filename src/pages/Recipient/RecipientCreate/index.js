@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 import FormRecipient from '~/components/FormRecipient';
-
-import * as C from './styles';
+import Main from '~/components/Main';
 
 const RecipientCreate = () => {
   const history = useHistory();
@@ -32,13 +31,13 @@ const RecipientCreate = () => {
   };
 
   return (
-    <C.Main>
+    <Main>
       <FormRecipient
         handleSubmit={handleSubmitForm}
         title="Recipient Create"
         onClickButtonBack={onClickButtonBack}
       />
-    </C.Main>
+    </Main>
   );
 };
 

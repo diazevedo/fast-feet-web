@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 import FormCourier from '~/components/FormCourier';
-
-import * as C from './styles';
+import Main from '~/components/Main';
 
 const CourierCreate = () => {
   const history = useHistory();
@@ -29,13 +28,13 @@ const CourierCreate = () => {
   };
 
   return (
-    <C.Main>
+    <Main>
       <FormCourier
         handleSubmit={handleSubmitForm}
         title="Courier Create"
         onClickButtonBack={onClickButtonBack}
       />
-    </C.Main>
+    </Main>
   );
 };
 
