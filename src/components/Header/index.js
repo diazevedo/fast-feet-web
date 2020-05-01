@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,15 +15,11 @@ const menus = [
 ];
 
 export default function Header() {
-  const [active, setActive] = useState('parcel');
-
   const dispatch = useDispatch();
 
   const user = useSelector((state) => {
     return state.user.profile;
   });
-
-  const handleMenuClick = (text) => setActive(text);
 
   const handleLogout = () => {
     dispatch(signOut());
@@ -38,13 +34,8 @@ export default function Header() {
 
         <ul>
           {menus.map(({ text, path }) => (
-            <C.MenuItem
-              // active={active === text ? 1 : 0}
-              key={text}
-              onClick={() => handleMenuClick(text)}
-            >
+            <C.MenuItem key={text}>
               <NavLink
-                exact
                 activeStyle={{
                   fontWeight: 'bold',
                   color: 'black',
