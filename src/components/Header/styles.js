@@ -4,7 +4,7 @@ import color from '~/styles/colors';
 
 export const Header = styled.header`
   width: 100%;
-  padding: 10px 32px;
+  padding: 0 40px;
   background: ${color.fourth};
 
   display: flex;
