@@ -22,9 +22,22 @@
 This is the backend code of a project developed as the final challenge from [Rockeseat Bootcamp](https://rocketseat.com.br/gostack). This the frontend version of the app.
 The app web version allows administrators to manage parcels, couriers, recipients, and check any delivery problems.
 
+### Technologies / Libraries
+
+- [React](https://reactjs.org/)
+- [React Select](https://react-select.com/)
+- [React Toastify](https://github.com/fkhadra/react-toastify)
+- [Redux](https://redux.js.org/introduction/getting-started)
+- [Redux Saga](https://redux-saga.js.org/)
+- [Styled Components](https://styled-components.com/)
+
 ### Running the project
 
-This project consumes the [API](https://www.github/diazevedo.com/fast-feet) so you need that running.
+Requirements
+
+- [Node](https://nodejs.org/en/).
+- [Yarn](https://yarnpkg.com/) or [NPM](https://www.npmjs.com/) — I am using yarn commands over this step-by-step.
+- This project consumes the [API](https://www.github/diazevedo.com/fast-feet) have it running.
 
 ```bash
 # Open a terminal
@@ -41,3 +54,5 @@ Use this user:
 E-mail: admin@fastfeet.com
 Password: 123456
 ```
+
+:bulb: Feel free to comment or to contribute with this project any thoughts on how to improve are welcome.
