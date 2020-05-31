@@ -13,8 +13,8 @@
 </p>
 
 <h2 align="center">
-  <img alt="Login page" src="./github/login.png" width="50%" height="50%" />
-  <img alt="Login page" src="./github/dashboard.png" width="50%" height="50%" />
+  <img alt="Login page" src=".github/login.png" width="50%" height="50%" />
+  <img alt="Login page" src=".github/dashboard.png" width="50%" height="50%" />
 </h2>
 
 ### Description
