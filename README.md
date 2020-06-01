@@ -19,8 +19,7 @@
 
 ### Description
 
-This is the backend code of a project developed as the final challenge from [Rockeseat Bootcamp](https://rocketseat.com.br/gostack). This the frontend version of the app.
-The app web version allows administrators to manage parcels, couriers, recipients, and check any delivery problems.
+This is the frontend of a project developed as the final challenge from [Rockeseat Bootcamp](https://rocketseat.com.br/gostack). The app web version allows administrators to manage parcels, couriers, recipients, and check any delivery problems.
 
 ### Technologies / Libraries
 
