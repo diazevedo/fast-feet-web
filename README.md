@@ -40,6 +40,13 @@ Requirements
 
 ```bash
 # Open a terminal
+
+# clone this repository
+$ git clone https://github.com/diazevedo/fast-feet-web.git
+
+# Go to the repository folder
+$ cd fast-feet-web
+
 # Run the below command to install dependenciess
 yarn
 
