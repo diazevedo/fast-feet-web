@@ -59,7 +59,7 @@ export default function Courier() {
         <T.THead header={header} />
         <T.TBody>
           {couriers.map((courier) => (
-            <T.TR>
+            <T.TR key={courier.id.toString()}>
               <T.TD>#{courier.id.toString().padStart(2, '0')}</T.TD>
               <T.TD showMobile={0}>
                 {courier.avatar && courier.avatar.url ? (
@@ -77,7 +77,6 @@ export default function Courier() {
               <T.TD>
                 <Actions
                   handleDelete={handleDelete}
-                  handleView={{}}
                   goTo="courier/edit"
                   state={{
                     courier_id: courier.id,

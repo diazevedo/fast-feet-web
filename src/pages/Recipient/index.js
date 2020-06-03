@@ -58,14 +58,13 @@ export default function Parcel() {
         <T.THead header={header} />
         <T.TBody>
           {recipients.map((recipient) => (
-            <T.TR>
+            <T.TR key={recipient.id.toString()}>
               <T.TD>#{recipient.id.toString().padStart(2, '0')}</T.TD>
               <T.TD>{recipient.name}</T.TD>
               <T.TD showMobile={0}>{recipient.address}</T.TD>
               <T.TD>
                 <Actions
                   handleDelete={handleDelete}
-                  handleView={{}}
                   goTo="/recipient/edit/"
                   state={{
                     recipient_id: recipient.id,

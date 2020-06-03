@@ -16,7 +16,7 @@ FormCustom.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   initialData: PropTypes.object.isRequired,
   // schema: PropTypes.object,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 // Form.defaultProps = {

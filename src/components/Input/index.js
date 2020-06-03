@@ -24,7 +24,7 @@ const Input = ({ name, ...rest }) => {
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  // id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
 };
 

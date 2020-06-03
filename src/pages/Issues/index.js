@@ -66,7 +66,7 @@ export default function Parcel() {
         <T.THead header={header} />
         <T.TBody>
           {issues.map((issue) => (
-            <T.TR>
+            <T.TR key={issue.id.toString()}>
               <T.TD>#{issue.parcel.id.toString().padStart(2, '0')}</T.TD>
               <T.TD>
                 <C.P>{issue.description}</C.P>
