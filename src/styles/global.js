@@ -31,8 +31,6 @@ export default createGlobalStyle`
 
   body {
     -webkit-font-smoothing: antialised;
-    /* overflow: hidden; */
-    /* height: 100%; */
   }
 
   body, input, button {

@@ -23,6 +23,7 @@ const formatDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
 
 export default function Parcel() {
   const [parcels, setParcels] = useState([]);
+  const [, throwError] = useState(null);
   const [parcelSelected, setParcelSelected] = useState({});
   const [showModal, setShowModal] = useState(false);
 
@@ -56,8 +57,10 @@ export default function Parcel() {
       });
       const parcelsFormatted = formatParcels(response.data);
       setParcels(parcelsFormatted);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      throwError(() => {
+        throw new Error(JSON.stringify(err.response.status));
+      });
     }
   }, []);
 

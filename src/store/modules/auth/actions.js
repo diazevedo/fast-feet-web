@@ -23,3 +23,9 @@ export function signOut() {
     type: '@auth/SIGN_OUT',
   };
 }
+
+export function cleanToken() {
+  return {
+    type: '@auth/SIGN_OUT',
+  };
+}

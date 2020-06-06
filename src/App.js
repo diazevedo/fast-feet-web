@@ -9,6 +9,8 @@ import './config/ReactotronConfig';
 import Routes from './routes';
 import GlobalStyle from './styles/global';
 
+import ErrorBoundary from '~/components/ErrorBoundary';
+
 import history from './services/history';
 
 import { store, persistor } from './store';
@@ -19,7 +21,9 @@ function App() {
       <PersistGate persistor={persistor}>
         <Router history={history}>
           <GlobalStyle />
-          <Routes />
+          <ErrorBoundary>
+            <Routes />
+          </ErrorBoundary>
           <ToastContainer autoClose={3000} />
         </Router>
       </PersistGate>

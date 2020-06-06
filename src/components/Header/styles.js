@@ -4,7 +4,7 @@ import color from '~/styles/colors';
 
 export const Header = styled.header`
   width: 100%;
-  padding: 0 40px;
+  padding: 5px 40px;
   background: ${color.fourth};
 
   display: flex;
@@ -75,3 +75,5 @@ export const MenuItem = styled.li`
     color: ${(props) => (props.active === 1 ? color.fifth : color.second)};
   }
 `;
+
+export const HamburgerIcon = styled.img``;
