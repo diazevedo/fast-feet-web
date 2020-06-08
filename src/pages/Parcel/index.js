@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 
@@ -26,13 +26,13 @@ export default function Parcel() {
   const [productName, setProductName] = useState('');
 
   const formatCallback = useCallback((parcels) => formatParcels(parcels), []);
+  const productNameParam = useMemo(() => {
+    return { product_name: productName };
+  }, [productName]);
 
   const [parcels, error] = useFetch({
     url: 'parcels/',
-    options: React.useMemo(() => {
-      return { product_name: productName };
-    }, [productName]),
-    // callback: useCallback((p) => formatParcels(p), []),
+    options: productNameParam,
     callback: formatCallback,
   });
 
