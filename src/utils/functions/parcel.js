@@ -27,3 +27,12 @@ export const parcelStatus = ({ canceled_at, end_date, start_date }) => {
 
   return 'pending';
 };
+
+export const formatParcels = (parcels) => {
+  console.log('parcels');
+  return parcels.map((parcel) => ({
+    ...parcel,
+    recipient: parcel.recipient ? parcel.recipient : {},
+    status: parcelStatus(parcel),
+  }));
+};

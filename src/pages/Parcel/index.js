@@ -2,9 +2,10 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 
+import useFetch from '~/hooks/useFetch';
 import api from '~/services/api';
 import history from '~/services/history';
-import { parcelStatus } from '~/utils/functions/parcel';
+import { formatParcels } from '~/utils/functions/parcel';
 import userInitials from '~/utils/functions/userInitials';
 
 import HeaderMainPage from '~/components/HeaderMainPage';
@@ -22,8 +23,21 @@ import header from '~/utils/data/headerParcels';
 const formatDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
 
 export default function Parcel() {
-  const [parcels, setParcels] = useState([]);
-  const [, throwError] = useState(null);
+  const [productName, setProductName] = useState('');
+
+  const formatCallback = useCallback((parcels) => formatParcels(parcels), []);
+
+  const [parcels, error] = useFetch({
+    url: 'parcels/',
+    options: React.useMemo(() => {
+      return { product_name: productName };
+    }, [productName]),
+    // callback: useCallback((p) => formatParcels(p), []),
+    callback: formatCallback,
+  });
+
+  // const [, throwError] = useState(null);
+
   const [parcelSelected, setParcelSelected] = useState({});
   const [showModal, setShowModal] = useState(false);
 
@@ -32,7 +46,7 @@ export default function Parcel() {
       await api.delete(`/parcels/${id}`);
       toast.success('The parcel has been deleted.');
       history.push('/');
-    } catch (error) {
+    } catch (err) {
       toast.error('Something went wrong.');
     }
   };
@@ -42,31 +56,23 @@ export default function Parcel() {
     setParcelSelected({});
   };
 
-  const formatParcels = (parcelData) => {
-    return parcelData.map((parcel) => ({
-      ...parcel,
-      recipient: parcel.recipient ? parcel.recipient : {},
-      status: parcelStatus(parcel),
-    }));
-  };
+  // const loadParcels = useCallback(async (productName = '') => {
+  //   try {
+  //     const response = await api.get('/parcels', {
+  //       params: { product_name: productName },
+  //     });
+  //     const parcelsFormatted = formatParcels(response.data);
+  //     setParcels(parcelsFormatted);
+  //   } catch (err) {
+  //     throwError(() => {
+  //       throw new Error(JSON.stringify(err.response.status));
+  //     });
+  //   }
+  // }, []);
 
-  const loadParcels = useCallback(async (productName = '') => {
-    try {
-      const response = await api.get('/parcels', {
-        params: { product_name: productName },
-      });
-      const parcelsFormatted = formatParcels(response.data);
-      setParcels(parcelsFormatted);
-    } catch (err) {
-      throwError(() => {
-        throw new Error(JSON.stringify(err.response.status));
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    loadParcels();
-  }, [loadParcels]);
+  // useEffect(() => {
+  //   loadParcels();
+  // }, [loadParcels]);
 
   const handleViewParcel = async (id) => {
     const response = await api.get(`/parcels/${id}`);
@@ -88,9 +94,9 @@ export default function Parcel() {
   const handleRegisterParcel = () =>
     history.push({ pathname: '/parcel/create' });
 
-  const handleChange = (e) => {
-    loadParcels(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   loadParcels(e.target.value);
+  // };
 
   return (
     <C.Main>
@@ -108,12 +114,14 @@ export default function Parcel() {
         </Modal>
       ) : null}
 
+      {error ? toast.error('Something went wrong.') : null}
+
       <HeaderMainPage
         title="Parcels management"
         placeholder="Parcels recipient"
         textButton="register"
         handleButton={handleRegisterParcel}
-        handleChange={handleChange}
+        handleChange={(e) => setProductName(e.target.value)}
       />
 
       <T.Table>
