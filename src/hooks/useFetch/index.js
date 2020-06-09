@@ -1,50 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import api from '~/services/api';
 
-const useFetch = ({
-  url = '',
-  options = {},
-  callback = null,
-  from = 'itself',
-}) => {
-  // console.log(url);
-  const [response, setResponse] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(`from   ${from}`);
+const useFetch = ({ url = '' }) => {
+  console.log(url);
+  const [response, setResponse] = useState(null);
+
   useEffect(() => {
+    setResponse(null);
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(false);
-
-      console.log('RAN USEFETCH');
-
       try {
-        const res = await api.get(url, { params: options });
-        let { data } = res;
+        const res = await api.get(url);
 
-        if (callback) {
-          data = callback(res.data);
-        }
-        setResponse(data);
+        setResponse(res);
       } catch (err) {
-        // setError(() => {
-        //   throw new Error(JSON.stringify(err.response.status));
-        // });
-        setError(err);
-      } finally {
-        setIsLoading(false);
+        console.log(err);
       }
     };
 
     fetchData();
 
     return () => setResponse([]);
-  }, [url, options, callback]);
-  // }, [url, callback]);
+  }, [url]);
 
-  return [response, error, isLoading];
+  return [response];
 };
 
 export default useFetch;

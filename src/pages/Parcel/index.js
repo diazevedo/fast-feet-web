@@ -24,21 +24,18 @@ export default function Parcel() {
   const [productName, setProductName] = useState('');
   const [parcelId, setParcelId] = useState(0);
 
-  const formatCallback = useCallback((parcels) => formatParcels(parcels), []);
-  const productNameParam = useMemo(() => {
-    return { product_name: productName };
-  }, [productName]);
+  // const formatCallback = useCallback((parcels) => formatParcels(parcels), []);
 
-  const [parcels, error] = useFetch({
-    url: React.useMemo(() => {
-      return 'parcels/';
-    }, []),
-    options: productNameParam,
-    callback: formatCallback,
-    from: React.useMemo(() => {
-      return 'Parcel';
-    }, []),
+  const [parcelsResponse, error] = useFetch({
+    url: '/parcels',
+    initialState: [],
   });
+
+  const parcels =
+    (parcelsResponse && formatParcels(parcelsResponse.data)) || [];
+  // console.log(parcels);
+
+  // parcels.length > 0 && parcels;
 
   const [showModal, setShowModal] = useState(false);
 

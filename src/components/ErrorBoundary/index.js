@@ -46,6 +46,6 @@ const mapDispatchToProps = (dispatch) =>
 export default connect(null, mapDispatchToProps)(ErrorBoundary);
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.element.isRequired,
   cleanToken: PropTypes.func.isRequired,
 };

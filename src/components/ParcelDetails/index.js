@@ -4,38 +4,27 @@ import * as C from './styles';
 
 import useFetch from '~/hooks/useFetch';
 import { formatParcelToModal } from '~/utils/functions/parcel';
+import api from '~/services/api';
 
 const ParcelDetails = ({ id }) => {
-  console.log(id);
-  const [url, setUrl] = React.useState(null);
+  const [parcel, setParcel] = React.useState({});
 
-  const [parcel, error, isLoading] = useFetch({
-    url: React.useMemo(() => {
-      return `parcels/${id}`;
-    }, [id]),
-    options: React.useMemo(() => {
-      return {};
-    }, []),
-    callback: React.useCallback((p) => formatParcelToModal(p), []),
-    from: React.useMemo(() => {
-      return 'Parcel Detais';
-    }, []),
-  });
+  const loadParcelDetais = React.useCallback(async () => {
+    if (id) {
+      const response = await api.get(`parcels/${id}`);
+      const parcelFormated = formatParcelToModal(response.data);
+      setParcel(parcelFormated);
+    }
+  }, [id]);
 
-  if (parcel.length === 0) {
+  React.useEffect(() => {
+    loadParcelDetais();
+  }, [loadParcelDetais]);
+
+  if (Object.keys(parcel).length === 0 || id === null) {
     return null;
   }
 
-  if (id === null) {
-    return null;
-  }
-
-  if (error) {
-    return <h1>Something went wrong.</h1>;
-  }
-  // console.log('parcel');
-  // console.log(parcel);
-  // console.log(isLoading);
   const { recipient, src } = parcel;
 
   return (
