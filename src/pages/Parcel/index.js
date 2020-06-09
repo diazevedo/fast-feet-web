@@ -1,5 +1,4 @@
 import React, { useMemo, useState, useCallback } from 'react';
-import { format, parseISO } from 'date-fns';
 import { toast } from 'react-toastify';
 
 import useFetch from '~/hooks/useFetch';
@@ -33,9 +32,6 @@ export default function Parcel() {
 
   const parcels =
     (parcelsResponse && formatParcels(parcelsResponse.data)) || [];
-  // console.log(parcels);
-
-  // parcels.length > 0 && parcels;
 
   const [showModal, setShowModal] = useState(false);
 
