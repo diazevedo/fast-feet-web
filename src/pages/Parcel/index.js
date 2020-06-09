@@ -20,10 +20,9 @@ import AvatarNoPhoto from '~/components/AvatarNoPhoto';
 import * as C from './styles';
 import header from '~/utils/data/headerParcels';
 
-const formatDate = (date) => format(parseISO(date), 'dd/MM/yyyy');
-
 export default function Parcel() {
   const [productName, setProductName] = useState('');
+  const [parcelId, setParcelId] = useState(0);
 
   const formatCallback = useCallback((parcels) => formatParcels(parcels), []);
   const productNameParam = useMemo(() => {
@@ -31,14 +30,16 @@ export default function Parcel() {
   }, [productName]);
 
   const [parcels, error] = useFetch({
-    url: 'parcels/',
+    url: React.useMemo(() => {
+      return 'parcels/';
+    }, []),
     options: productNameParam,
     callback: formatCallback,
+    from: React.useMemo(() => {
+      return 'Parcel';
+    }, []),
   });
 
-  // const [, throwError] = useState(null);
-
-  const [parcelSelected, setParcelSelected] = useState({});
   const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async ({ id }) => {
@@ -52,65 +53,23 @@ export default function Parcel() {
   };
 
   const closeModal = () => {
+    setParcelId(null);
     setShowModal(false);
-    setParcelSelected({});
   };
 
-  // const loadParcels = useCallback(async (productName = '') => {
-  //   try {
-  //     const response = await api.get('/parcels', {
-  //       params: { product_name: productName },
-  //     });
-  //     const parcelsFormatted = formatParcels(response.data);
-  //     setParcels(parcelsFormatted);
-  //   } catch (err) {
-  //     throwError(() => {
-  //       throw new Error(JSON.stringify(err.response.status));
-  //     });
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   loadParcels();
-  // }, [loadParcels]);
-
   const handleViewParcel = async (id) => {
-    const response = await api.get(`/parcels/${id}`);
-
-    const parcelFormatted = {
-      ...response.data,
-      started: response.data.start_date
-        ? formatDate(response.data.start_date)
-        : 'To be picked up',
-      end: response.data.end_date
-        ? formatDate(response.data.end_date)
-        : 'To be delivered',
-    };
-
-    setParcelSelected(parcelFormatted);
+    setParcelId(id);
     setShowModal(true);
   };
 
   const handleRegisterParcel = () =>
     history.push({ pathname: '/parcel/create' });
 
-  // const handleChange = (e) => {
-  //   loadParcels(e.target.value);
-  // };
-
   return (
     <C.Main>
       {showModal ? (
         <Modal closeModal={closeModal}>
-          <ParcelDetails
-            parcel={parcelSelected}
-            recipient={parcelSelected.recipient}
-            src={
-              parcelSelected.signature && parcelSelected.signature.url
-                ? parcelSelected.signature.url
-                : 'https://api.adorable.io/avatars/50/abott@adorable.png'
-            }
-          />
+          <ParcelDetails id={parcelId} />
         </Modal>
       ) : null}
 

@@ -1,4 +1,5 @@
 import api from '~/services/api';
+import { formatDate } from './date';
 
 function prepareDataForInputs(data) {
   return data.map((d) => ({
@@ -29,10 +30,23 @@ export const parcelStatus = ({ canceled_at, end_date, start_date }) => {
 };
 
 export const formatParcels = (parcels) => {
-  console.log('parcels');
   return parcels.map((parcel) => ({
     ...parcel,
     recipient: parcel.recipient ? parcel.recipient : {},
     status: parcelStatus(parcel),
   }));
+};
+
+export const formatParcelToModal = (parcel) => {
+  return {
+    ...parcel,
+    started: parcel.start_date
+      ? formatDate(parcel.start_date)
+      : 'To be picked up',
+    end: parcel.end_date ? formatDate(parcel.end_date) : 'To be delivered',
+    url:
+      parcel.signature && parcel.signature.url
+        ? parcel.signature.url
+        : 'https://api.adorable.io/avatars/50/abott@adorable.png',
+  };
 };

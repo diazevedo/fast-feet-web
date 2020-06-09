@@ -2,16 +2,24 @@ import React, { useState, useEffect } from 'react';
 
 import api from '~/services/api';
 
-const useFetch = ({ url, options = {}, callback = null }) => {
-  console.log('useFetch');
-  console.log(options);
+const useFetch = ({
+  url = '',
+  options = {},
+  callback = null,
+  from = 'itself',
+}) => {
+  // console.log(url);
   const [response, setResponse] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(`from   ${from}`);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      setError(false);
+
+      console.log('RAN USEFETCH');
+
       try {
         const res = await api.get(url, { params: options });
         let { data } = res;
@@ -19,7 +27,6 @@ const useFetch = ({ url, options = {}, callback = null }) => {
         if (callback) {
           data = callback(res.data);
         }
-        console.log(data);
         setResponse(data);
       } catch (err) {
         // setError(() => {
@@ -32,6 +39,8 @@ const useFetch = ({ url, options = {}, callback = null }) => {
     };
 
     fetchData();
+
+    return () => setResponse([]);
   }, [url, options, callback]);
   // }, [url, callback]);
 

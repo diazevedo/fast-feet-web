@@ -2,8 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as C from './styles';
 
-const ParcelDetails = ({ parcel, src }) => {
-  const { recipient } = parcel;
+import useFetch from '~/hooks/useFetch';
+import { formatParcelToModal } from '~/utils/functions/parcel';
+
+const ParcelDetails = ({ id }) => {
+  console.log(id);
+  const [url, setUrl] = React.useState(null);
+
+  const [parcel, error, isLoading] = useFetch({
+    url: React.useMemo(() => {
+      return `parcels/${id}`;
+    }, [id]),
+    options: React.useMemo(() => {
+      return {};
+    }, []),
+    callback: React.useCallback((p) => formatParcelToModal(p), []),
+    from: React.useMemo(() => {
+      return 'Parcel Detais';
+    }, []),
+  });
+
+  if (parcel.length === 0) {
+    return null;
+  }
+
+  if (id === null) {
+    return null;
+  }
+
+  if (error) {
+    return <h1>Something went wrong.</h1>;
+  }
+  // console.log('parcel');
+  // console.log(parcel);
+  // console.log(isLoading);
+  const { recipient, src } = parcel;
 
   return (
     <C.Container>
@@ -36,37 +69,11 @@ const ParcelDetails = ({ parcel, src }) => {
 };
 
 ParcelDetails.propTypes = {
-  parcel: PropTypes.shape({
-    recipient: PropTypes.shape({
-      name: PropTypes.string,
-      street: PropTypes.string,
-      number: PropTypes.string,
-      city: PropTypes.string,
-      state: PropTypes.string,
-      post_code: PropTypes.string,
-    }),
-
-    started: PropTypes.string,
-    end: PropTypes.string,
-  }),
-  src: PropTypes.string,
+  id: PropTypes.number,
 };
 
 ParcelDetails.defaultProps = {
-  parcel: PropTypes.shape({
-    recipient: PropTypes.shape({
-      name: '',
-      street: '',
-      number: '',
-      city: '',
-      state: '',
-      post_code: '',
-    }),
-
-    started: '',
-    end: '',
-  }),
-  src: 'https://picsum.photos/400/50',
+  id: null,
 };
 
 export default ParcelDetails;
