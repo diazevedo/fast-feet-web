@@ -19,21 +19,16 @@ import AvatarNoPhoto from '~/components/AvatarNoPhoto';
 import * as C from './styles';
 import header from '~/utils/data/headerParcels';
 
-export default function Parcel() {
+const Parcel = () => {
   const [productName, setProductName] = useState('');
-  const [parcelId, setParcelId] = useState(0);
-
-  // const formatCallback = useCallback((parcels) => formatParcels(parcels), []);
-
-  const [parcelsResponse, error] = useFetch({
-    url: '/parcels',
-    initialState: [],
-  });
-
-  const parcels =
-    (parcelsResponse && formatParcels(parcelsResponse.data)) || [];
-
   const [showModal, setShowModal] = useState(false);
+  const [parcelId, setParcelId] = useState(null);
+
+  const [parcels, error, loading] = useFetch({
+    url: useMemo(() => '/parcels', []),
+    options: useMemo(() => ({ product_name: productName }), [productName]),
+    callback: useCallback((p) => formatParcels(p), []),
+  });
 
   const handleDelete = async ({ id }) => {
     try {
@@ -46,7 +41,6 @@ export default function Parcel() {
   };
 
   const closeModal = () => {
-    setParcelId(null);
     setShowModal(false);
   };
 
@@ -58,6 +52,14 @@ export default function Parcel() {
   const handleRegisterParcel = () =>
     history.push({ pathname: '/parcel/create' });
 
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
+
+  if (error) {
+    toast.error(`Something went wrong.`);
+  }
+
   return (
     <C.Main>
       {showModal ? (
@@ -65,8 +67,6 @@ export default function Parcel() {
           <ParcelDetails id={parcelId} />
         </Modal>
       ) : null}
-
-      {error ? toast.error('Something went wrong.') : null}
 
       <HeaderMainPage
         title="Parcels management"
@@ -129,4 +129,6 @@ export default function Parcel() {
       </T.Table>
     </C.Main>
   );
-}
+};
+
+export default Parcel;

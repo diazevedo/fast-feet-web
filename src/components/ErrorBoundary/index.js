@@ -22,9 +22,8 @@ class ErrorBoundary extends Component {
     const { cleanToken } = this.props;
 
     if (hasError) {
-      console.log(hasError);
-      // cleanToken();
-      // setTimeout(() => window.location.reload(), 3000);
+      cleanToken();
+      setTimeout(() => window.location.reload(), 3000);
     }
   }
 
