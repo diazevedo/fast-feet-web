@@ -10,10 +10,3 @@ export const Main = styled.main`
     margin-top: 10px;
   }
 `;
-
-export const P = styled.p`
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 40vw;
-`;

@@ -1,82 +1,60 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { toast } from 'react-toastify';
+
+import useFetch from '~/hooks/useFetch';
+
 import api from '~/services/api';
 import history from '~/services/history';
 
 import HeaderMainPage from '~/components/HeaderMainPage';
-import * as T from '~/components/TableComponents';
+import RecipientsTable from '~/components/RecipientsTable';
 
-import Actions from '~/components/Actions';
+import { formatRecipients } from '~/utils/functions/recipients';
 
 import * as C from './styles';
-import header from '~/utils/data/headerRecipients';
 
 export default function Parcel() {
-  const [recipients, setRecipients] = useState([]);
+  const [recipientName, setRecipientName] = useState('');
 
-  const loadRecipients = useCallback(async (name = '') => {
-    const response = await api.get('/recipients', { params: { name } });
-
-    const recipientsFormatted = response.data.map((recipient) => ({
-      ...recipient,
-      address: `${recipient.number}, ${recipient.street}, ${recipient.city} - ${recipient.state}`,
-    }));
-
-    setRecipients(recipientsFormatted);
-  }, []);
-
-  useEffect(() => {
-    loadRecipients();
-  }, [loadRecipients]);
+  const [recipients, error, loading] = useFetch({
+    url: useMemo(() => '/recipients', []),
+    options: useMemo(() => ({ name: recipientName }), [recipientName]),
+    callback: useCallback((r) => formatRecipients(r), []),
+  });
 
   const handleRegisterRecipient = () =>
     history.push({ pathname: '/recipient/create' });
-
-  const handleChange = (e) => loadRecipients(e.target.value);
 
   const handleDelete = async ({ id }) => {
     try {
       await api.put(`/recipients/${id}/cancel`);
 
       toast.success('The recipient has been deleted.');
-      loadRecipients();
-    } catch (error) {
+      history.push('/recipient');
+    } catch (err) {
       toast.error('Something went wrong.');
     }
   };
+
+  if (loading) {
+    return <h1>Loading</h1>;
+  }
+
+  if (error) {
+    toast.error(`Something went wrong.`);
+  }
+
   return (
     <C.Main>
       <HeaderMainPage
         title="Recipients management"
-        placeholder="Recipient search"
+        placeholder="Search by name"
         textButton="register"
         handleButton={handleRegisterRecipient}
-        handleChange={handleChange}
+        handleChange={(e) => setRecipientName(e.target.value)}
       />
 
-      <T.Table>
-        <T.THead header={header} />
-        <T.TBody>
-          {recipients.map((recipient) => (
-            <T.TR key={recipient.id.toString()}>
-              <T.TD>#{recipient.id.toString().padStart(2, '0')}</T.TD>
-              <T.TD>{recipient.name}</T.TD>
-              <T.TD showMobile={0}>{recipient.address}</T.TD>
-              <T.TD>
-                <Actions
-                  handleDelete={handleDelete}
-                  goTo="/recipient/edit/"
-                  state={{
-                    recipient_id: recipient.id,
-                    recipient,
-                  }}
-                  data={recipient}
-                />
-              </T.TD>
-            </T.TR>
-          ))}
-        </T.TBody>
-      </T.Table>
+      <RecipientsTable recipients={recipients} handleDelete={handleDelete} />
     </C.Main>
   );
 }

@@ -26,7 +26,7 @@ const Actions = ({
   cancellationText,
 }) => {
   const [visible, setVisibility] = useState(false);
-  // console.log(data);
+
   const handleClickView = ({ id }) => handleView(id);
 
   return (

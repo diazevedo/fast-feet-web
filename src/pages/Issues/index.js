@@ -2,18 +2,17 @@ import React, { useState, useMemo } from 'react';
 
 import { toast } from 'react-toastify';
 
+import * as C from './styles';
+
 import api from '~/services/api';
 import history from '~/services/history';
 
 import PageTitle from '~/components/PageTitle';
-import * as T from '~/components/TableComponents';
 import Modal from '~/components/Modal';
-import Actions from '~/components/Actions';
+import IssuesTable from '~/components/IssuesTable';
 import IssuesDetails from '~/components/IssueDetails';
 
 import useFetch from '~/hooks/useFetch';
-import * as C from './styles';
-import header from '~/utils/data/headerIssues';
 
 export default function Parcel() {
   const [issues, error, loading] = useFetch({
@@ -57,28 +56,11 @@ export default function Parcel() {
 
       <PageTitle>Deliveries issues</PageTitle>
 
-      <T.Table>
-        <T.THead header={header} />
-        <T.TBody>
-          {issues.map((issue) => (
-            <T.TR key={issue.id.toString()}>
-              <T.TD>#{issue.parcel.id.toString().padStart(2, '0')}</T.TD>
-              <T.TD>
-                <C.P>{issue.description}</C.P>
-              </T.TD>
-              <T.TD>
-                <Actions
-                  viewOption
-                  handleDelete={handleDelete}
-                  handleView={() => handleViewProblem(issue)}
-                  data={issue}
-                  cancellationText="Cancel delivery"
-                />
-              </T.TD>
-            </T.TR>
-          ))}
-        </T.TBody>
-      </T.Table>
+      <IssuesTable
+        issues={issues}
+        handleDelete={handleDelete}
+        handleViewProblem={handleViewProblem}
+      />
     </C.Main>
   );
 }
