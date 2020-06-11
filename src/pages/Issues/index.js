@@ -25,6 +25,7 @@ export default function Parcel() {
 
   const handleDelete = async ({ id }) => {
     await api.delete(`/parcels/problems/${id}`);
+    toast.success('The delivery has been deleted.');
     history.push('/issues');
   };
 
