@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useMemo } from 'react';
+
+import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -9,11 +11,16 @@ import Modal from '~/components/Modal';
 import Actions from '~/components/Actions';
 import IssuesDetails from '~/components/IssueDetails';
 
+import useFetch from '~/hooks/useFetch';
 import * as C from './styles';
 import header from '~/utils/data/headerIssues';
 
 export default function Parcel() {
-  const [issues, setIssues] = useState([]);
+  const [issues, error, loading] = useFetch({
+    url: useMemo(() => '/parcels/problems', []),
+    options: useMemo(() => ({}), []),
+  });
+
   const [issueSelected, setIssueSelected] = useState({});
   const [showModal, setShowModal] = useState(false);
 
@@ -22,44 +29,32 @@ export default function Parcel() {
     history.push('/issues');
   };
 
+  const handleViewProblem = (issue) => {
+    setIssueSelected(issue);
+    setShowModal(true);
+  };
+
   const closeModal = () => {
     setShowModal(false);
     setIssueSelected({});
   };
 
-  useEffect(() => {
-    const loadIssues = async () => {
-      try {
-        const response = await api.get('/parcels/problems');
-        setIssues(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  if (loading) {
+    return <h1>LOADING</h1>;
+  }
 
-    loadIssues();
-  }, []);
-
-  const handleViewProblem = async (id) => {
-    try {
-      const response = await api.get(`/problems/${id}`);
-
-      setIssueSelected(response.data);
-      setShowModal(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  if (error) {
+    toast.error(`Something went wrong.`);
+  }
 
   return (
     <C.Main>
       {showModal ? (
         <Modal closeModal={closeModal}>
-          <IssuesDetails text={issueSelected.description} />
+          <IssuesDetails description={issueSelected.description} />
         </Modal>
-      ) : (
-        ''
-      )}
+      ) : null}
+
       <PageTitle>Deliveries issues</PageTitle>
 
       <T.Table>
@@ -75,8 +70,7 @@ export default function Parcel() {
                 <Actions
                   viewOption
                   handleDelete={handleDelete}
-                  handleView={handleViewProblem}
-                  goTo=""
+                  handleView={() => handleViewProblem(issue)}
                   data={issue}
                   cancellationText="Cancel delivery"
                 />

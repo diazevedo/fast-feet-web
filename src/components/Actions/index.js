@@ -26,7 +26,7 @@ const Actions = ({
   cancellationText,
 }) => {
   const [visible, setVisibility] = useState(false);
-
+  // console.log(data);
   const handleClickView = ({ id }) => handleView(id);
 
   return (
@@ -94,7 +94,7 @@ Actions.propTypes = {
   state: PropTypes.object,
   handleDelete: PropTypes.func.isRequired,
   handleView: PropTypes.func,
-  goTo: PropTypes.string.isRequired,
+  goTo: PropTypes.string,
   viewOption: PropTypes.bool,
   editOption: PropTypes.bool,
   cancellationText: PropTypes.string,
@@ -104,6 +104,7 @@ Actions.defaultProps = {
   state: {},
   editOption: false,
   viewOption: false,
+  goTo: '',
   handleView: () => {},
   cancellationText: 'Delete',
 };

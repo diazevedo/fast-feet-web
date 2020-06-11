@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as C from './styles';
 
-const IssueDetails = ({ text }) => {
+const IssueDetails = ({ description }) => {
   return (
     <>
       <C.ModalTitle>See problem</C.ModalTitle>
-      <C.Text>{text}</C.Text>
+      <C.Text>{description}</C.Text>
     </>
   );
 };
 
 IssueDetails.propTypes = {
-  text: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default IssueDetails;
